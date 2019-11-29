@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>CYTV</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Your description">
+	<meta name="keywords" content="Your keywords">
+	<meta name="author" content="Your name">
+	<link rel="icon" href="../images/icon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
+	<!-- <link rel="stylesheet" href="../css/supersized.core.css" type="text/css" media="screen"> -->
+	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+	<script src="../js/home.js"></script>
+	<!-- <link rel="stylesheet" href="../css/touchTouch.css" type="text/css" media="screen"> -->
+	<!-- <link rel="stylesheet" href="../css/isotope.css" type="text/css" media="screen"> -->
+</head>
+
+<body class="subpage">
+	<div id="main">
+		{include file="../templates/header.tpl"}
+		<div id="navigation" class="container">
+			<div class="row">
+				<div class="span12">
+					{foreach $res as $value}
+					<ul class="menu menu2 row sf-menu clearfix">
+						{for $foo=0 to $value|count-1}
+						<li class="nav2 span3">
+							<a href="?page={{$value.$foo.id}}"><img src="../images/{{$value.$foo.img1}}" alt="">
+								<span class="over1"></span>
+								<span class="over2"><img src="../images/{{$value.$foo.img2}}" alt=""></span><span
+									class="ic1"></span><span class="txt1"></span><span
+									class="txt1">{{$value.$foo.name}}</span></a></li>
+						{/for}
+					</ul>
+					{/foreach}
+					<div class="hl1"></div>
+
+				</div>
+			</div>
+		</div>
+		{include file="../templates/footer.tpl"}
+	</div>
+</body>
+
+</html>

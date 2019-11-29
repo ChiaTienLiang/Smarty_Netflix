@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CYTV Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your keywords">
+    <meta name="author" content="Your name">
+    <link rel="icon" href="../images/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="../js/login.js"></script>
+</head>
+
+<body class="subpage">
+    <div id="main">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div class="header_inner clearfix">
+                            <div class="top1"><a href="../backend/home_index.php"
+                                    class="logo">C&emsp;Y&emsp;<span>T&emsp;V</span></a>
+                            </div>
+                            <div class="top2">
+                                <div class="menu_top">
+                                    <ul id="menu_top" class="clearfix">
+                                        <li><a href="signUp.html">Sign Up</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <div class="span6">
+                    <h2>log&emsp;in</h2>
+                    <div id="fields">
+                        <form id="ajax-contact-form" class="form-horizontal">
+                            <div class="control-group">
+                                <h6 class="login" for="email">Your email:</h6>
+                                <div class="controls">
+                                    <input class="span6" type="email" id="email" name="email"
+                                        placeholder="you@example.com">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <h6 class="login" for="password">Your Password:</h6>
+                                <div class="controls">
+                                    <input class="span6" type="password" id="password" name="password"
+                                        placeholder="8-12位數大小寫英文及數字">
+                                </div>
+                            </div>
+                            <br>
+                            <button type="button" class="submit" id="login"><em></em>submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
