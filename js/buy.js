@@ -262,8 +262,8 @@ function radioChang(e) {
     // console.log(money);
     price = $("#price" + e).text();
     point = $("#point" + e).text();
-    $("#cointable").text(price);
-    $("#pricetable").text(point);
+    $("#cointable").text(point);
+    $("#pricetable").text(price);
 }
 
 /**
