@@ -128,7 +128,6 @@ class Video extends Token
                         $shop[$i]['episode'] = $episodes[$i]['episode'];
                         $shop[$i]['url'] = $episodes[$i]['url'];
                         $shop[$i]['price'] = $episodes[$i]['price'];
-                        break;
                     } else {
                         $shop[$i]['isbuy'] = false;
                         $shop[$i]['id'] = $episodes[$i]['id'];
