@@ -17,7 +17,7 @@ $(document).ready(function () {
         },
         success: function (res) {
           res = JSON.parse(res);
-          console.log(res);
+          // console.log(res);
           if (res['success'] === true) {
             Swal.fire({
               position: 'top',

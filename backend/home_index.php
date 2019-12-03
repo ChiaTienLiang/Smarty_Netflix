@@ -32,8 +32,10 @@ if (isset($_COOKIE['token'])) {
     $smarty->assign("memberName", $member->name);
     $smarty->assign("memberId", $member->id);
     $smarty->assign("memberLevel", $member->level);
+    $smarty->assign("memberWallet", $member->wallet);
 } else {
     $smarty->assign("memberName", "Guest");
+    $smarty->assign("memberLevel", null);
 }
 
 

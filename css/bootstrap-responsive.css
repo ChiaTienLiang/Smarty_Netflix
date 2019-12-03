@@ -889,12 +889,12 @@
     width: auto;
     margin: 0;
   }
-  .modal.fade {
+  /* .modal.fade {
     top: -100px;
   }
   .modal.fade.in {
     top: 20px;
-  }
+  } */
 }
 
 @media (max-width: 480px) {

@@ -4,7 +4,7 @@ $(document).ready(function () {
     let nameRule = /^.+$/;
     let cardRule = /^\d{4}$/;
     let monthRule = /^[0-1][0-9]$/;
-    let yearRule = /^[1-2][0-9]{3}$/;
+    let yearRule = /^[2-9][0-9]$/;
     let safeRule = /^\d{3}$/;
     /**
      * 檢查名字是否空白
@@ -121,7 +121,7 @@ $(document).ready(function () {
             $("#cardMonth").css("border-color", "#265f94");
             monthCheck = true;
         } else {
-            $(".month").text("請輸入卡號");
+            $(".month").text("請輸入月份");
             $(".month").css({
                 color: "red",
                 "font-size": "0.8rem"
@@ -137,7 +137,7 @@ $(document).ready(function () {
             $("#cardYear").css("border-color", "#265f94");
             yearCheck = true;
         } else {
-            $(".year").text("請輸入卡號");
+            $(".year").text("請輸入年分");
             $(".year").css({
                 color: "red",
                 "font-size": "0.8rem"
@@ -156,7 +156,7 @@ $(document).ready(function () {
             $("#cardSafe").css("border-color", "#265f94");
             safeCheck = true;
         } else {
-            $(".safe").text("請輸入卡號");
+            $(".safe").text("請輸入安全碼");
             $(".safe").css({
                 color: "red",
                 "font-size": "0.8rem"
@@ -168,17 +168,15 @@ $(document).ready(function () {
     });
 
 
-
-    $("#signUp").click(function () {
-        if (nameCheck1 && nameCheck2 && cardCheck1 && cardCheck2 && cardCheck3 && cardCheck4) {
+    $("#submitBuy").click(function () {
+        if (nameCheck2 && nameCheck1 && cardCheck1 && cardCheck2 && cardCheck3
+            && cardCheck4 && monthCheck && yearCheck && safeCheck) {
             $.ajax({
                 type: "POST",
-                url: "../MemberContro.php",
+                url: "../CashContro.php",
                 data: {
-                    todo: 'signUp',
-                    name: $("#name").val(),
-                    email: $("#email").val(),
-                    password: $("#password").val()
+                    todo: 'deposit',
+                    moneyId: $("[name='jkoprice']:checked").val(),
                 },
                 success: function (res) {
                     res = JSON.parse(res);
@@ -186,71 +184,32 @@ $(document).ready(function () {
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
-                            title: '成功加入會員',
+                            title: '成功購買',
                             showConfirmButton: false,
-                            timer: 1000
-                        })
-                            .then(function () {
-                                window.location.href = "../templates/login.html"
-                            });
+                            timer: 1500
+                        }).then(function () {
+                            window.location.href = "../backend/home_index.php"
+                        });
                     } else {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: '該Email已被註冊',
+                            title: '帳號密碼錯誤!',
                         })
                     }
                 },
                 error: function (error) {
-                    console.log(error);
+                    // console.log(error);
                 }
             });
         } else {
             Swal.fire({
                 position: 'top',
                 icon: 'error',
-                title: '資料輸入格式錯誤',
+                title: '資料輸入未完全',
             })
         }
-    });
 
-
-    $("#submitBuy").click(function () {
-        $price = $("[name='jkoprice']:checked").val();
-        $point = $("[name='jkoprice']:checked").val();
-        console.log($price);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "../CashContro.php",
-        //         data: {
-        //             todo: 'buy',
-        //             token: '',
-        //             deposit: $("[name='jkoprice']:checked").val(),
-        //         },
-        //         success: function (res) {
-        //             res = JSON.parse(res);
-        //             if (res === true) {
-        //                 Swal.fire({
-        //                     position: 'top',
-        //                     icon: 'success',
-        //                     title: '成功購買',
-        //                     showConfirmButton: false,
-        //                     timer: 1500
-        //                 }).then(function () {
-        //                     // window.location.href = "../backend/home_index.php"
-        //                 });
-        //             } else {
-        //                 Swal.fire({
-        //                     position: 'top',
-        //                     icon: 'error',
-        //                     title: '帳號密碼錯誤!',
-        //                 })
-        //             }
-        //         },
-        //         error: function (error) {
-        //             // console.log(error);
-        //         }
-        //     });
     })
 })
 

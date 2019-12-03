@@ -6,10 +6,12 @@
 class Token
 {
     protected $mysqli;
-
+    public $date;
     public function __construct($mysqli)
     {
+        date_default_timezone_set("Asia/Taipei");
         $this->mysqli = $mysqli;
+        $this->date =  date("Y-m-d H:i:s");
     }
     public function checkToken($token)
     {

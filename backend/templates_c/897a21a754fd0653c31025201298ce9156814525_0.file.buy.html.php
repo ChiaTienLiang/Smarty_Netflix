@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-11-29 11:34:28
+/* Smarty version 3.1.33, created on 2019-12-02 03:11:53
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\buy.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5de0f434d8da17_35546147',
+  'unifunc' => 'content_5de472e94d5c20_98709904',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '897a21a754fd0653c31025201298ce9156814525' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\buy.html',
-      1 => 1575023584,
+      1 => 1575252711,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5de0f434d8da17_35546147 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5de472e94d5c20_98709904 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +101,7 @@ echo $_prefixVariable1;?>
 echo $_smarty_tpl->tpl_vars['value']->value['id'];
 $_prefixVariable2 = ob_get_clean();
 echo $_prefixVariable2;?>
- checked
+
                                                         onclick="radioChang('<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value['id'];
 $_prefixVariable3 = ob_get_clean();
@@ -162,11 +162,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                         <tbody>
                                             <tr>
                                                 <td>商品</td>
-                                                <td id="cointable">TV幣 × </td>
+                                                <td id="cointable"> </td>
                                             </tr>
                                             <tr>
                                                 <td>價格</td>
-                                                <td id="pricetable">NT$ </td>
+                                                <td id="pricetable"></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -209,13 +209,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                                 <h6 class="login" for="password">信用卡到期日和安全碼:</h6>
                                                                 <div class="controls">
                                                                     <input class="span1" type="text" id="cardMonth"
-                                                                        name="password"
-                                                                        placeholder="月"><span>&emsp;&ensp;</span>
+                                                                        name="password" placeholder="月"
+                                                                        maxlength=2><span>&emsp;&ensp;</span>
                                                                     <input class="span1" type="text" id="cardYear"
-                                                                        name="password"
-                                                                        placeholder="年"><span>&emsp;&ensp;</span>
+                                                                        name="password" placeholder="年"
+                                                                        maxlength=2><span>&emsp;&ensp;</span>
                                                                     <input class="span1" type="text" id="cardSafe"
-                                                                        name="password" placeholder="安全碼">
+                                                                        name="password" placeholder="安全碼" maxlength=3>
                                                                 </div>
                                                                 <span class="month year safe" id="errorDate"></span>
                                                             </div>

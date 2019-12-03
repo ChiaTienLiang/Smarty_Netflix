@@ -730,7 +730,10 @@ a.text-success:focus {
 
 .text-center {
   text-align: center;
+  letter-spacing: 20px;
 }
+
+
 
 h1,
 h2,
@@ -740,6 +743,7 @@ h5,
 h6 {
   margin: 10px 0;
   font-family: inherit;
+  /* font-family:Michroma; */
   font-weight: bold;
   line-height: 20px;
   color: inherit;
@@ -3141,17 +3145,17 @@ table th[class*="span"],
           border-radius: 3px;
 }
 
-.fade {
+/* .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
      -moz-transition: opacity 0.15s linear;
        -o-transition: opacity 0.15s linear;
           transition: opacity 0.15s linear;
-}
+} */
 
-.fade.in {
+/* .fade.in {
   opacity: 1;
-}
+} */
 
 .collapse {
   position: relative;
@@ -5190,11 +5194,11 @@ input[type="submit"].btn.btn-mini {
   opacity: 0;
 } */
 
-.modal-backdrop,
-.modal-backdrop.fade.in {
+/* .modal-backdrop,
+.modal-backdrop.fade.in { */
   /* opacity: 0.8; */
-  filter: alpha(opacity=80);
-}
+  /* filter: alpha(opacity=80); */
+/* } */
 
 .modal {
   /* position: fixed; */
@@ -5209,7 +5213,7 @@ input[type="submit"].btn.btn-mini {
   /* border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3); */
   /* *border: 1px solid #999; */
-  -webkit-border-radius: 6px;
+  /* -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
   outline: none;
@@ -5218,7 +5222,7 @@ input[type="submit"].btn.btn-mini {
           box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding-box;
-          background-clip: padding-box;
+          background-clip: padding-box; */
 }
 
 /* .modal.fade {
@@ -5238,14 +5242,14 @@ input[type="submit"].btn.btn-mini {
   border-bottom: 1px solid #eee;
 } */
 
-.modal-header .close {
+/* .modal-header .close {
   margin-top: 2px;
 }
 
 .modal-header h3 {
   margin: 0;
   line-height: 30px;
-}
+} */
 
 .modal-body {
   position: relative;

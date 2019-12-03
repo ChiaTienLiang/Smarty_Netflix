@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-11-29 10:36:19
+/* Smarty version 3.1.33, created on 2019-12-02 08:39:59
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\home.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5de0e6938cdbb7_58069118',
+  'unifunc' => 'content_5de4bfcfd668a0_95232348',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '713677849f23297c5efe1dc47e0905f66a79b26d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\home.html',
-      1 => 1575020122,
+      1 => 1575272287,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5de0e6938cdbb7_58069118 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5de4bfcfd668a0_95232348 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -43,13 +43,11 @@ function content_5de0e6938cdbb7_58069118 (Smarty_Internal_Template $_smarty_tpl)
 >
 	<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
-	<!-- <link rel="stylesheet" href="../css/supersized.core.css" type="text/css" media="screen"> -->
 	<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
 	<?php echo '<script'; ?>
  src="../js/home.js"><?php echo '</script'; ?>
 >
-	<!-- <link rel="stylesheet" href="../css/touchTouch.css" type="text/css" media="screen"> -->
-	<!-- <link rel="stylesheet" href="../css/isotope.css" type="text/css" media="screen"> -->
+
 </head>
 
 <body class="subpage">
@@ -71,27 +69,49 @@ if ($_smarty_tpl->tpl_vars['foo']->total > 0) {
 for ($_smarty_tpl->tpl_vars['foo']->value = 0, $_smarty_tpl->tpl_vars['foo']->iteration = 1;$_smarty_tpl->tpl_vars['foo']->iteration <= $_smarty_tpl->tpl_vars['foo']->total;$_smarty_tpl->tpl_vars['foo']->value += $_smarty_tpl->tpl_vars['foo']->step, $_smarty_tpl->tpl_vars['foo']->iteration++) {
 $_smarty_tpl->tpl_vars['foo']->first = $_smarty_tpl->tpl_vars['foo']->iteration === 1;$_smarty_tpl->tpl_vars['foo']->last = $_smarty_tpl->tpl_vars['foo']->iteration === $_smarty_tpl->tpl_vars['foo']->total;?>
 						<li class="nav2 span3">
-							<a href="?page=<?php ob_start();
-echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+							<?php if ($_smarty_tpl->tpl_vars['memberLevel']->value === null) {?>
+							<a href="#"><img src="../images/<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img1'];
 $_prefixVariable1 = ob_get_clean();
 echo $_prefixVariable1;?>
-"><img src="../images/<?php ob_start();
-echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img1'];
-$_prefixVariable2 = ob_get_clean();
-echo $_prefixVariable2;?>
 " alt="">
 								<span class="over1"></span>
 								<span class="over2"><img src="../images/<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img2'];
-$_prefixVariable3 = ob_get_clean();
-echo $_prefixVariable3;?>
+$_prefixVariable2 = ob_get_clean();
+echo $_prefixVariable2;?>
 " alt=""></span><span
 									class="ic1"></span><span class="txt1"></span><span
 									class="txt1"><?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['name'];
+$_prefixVariable3 = ob_get_clean();
+echo $_prefixVariable3;?>
+</span></a>
+							<?php } else { ?>
+							<a href="videoPage_index.php?id=<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
 $_prefixVariable4 = ob_get_clean();
 echo $_prefixVariable4;?>
-</span></a></li>
+"><img
+									src="../images/<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img1'];
+$_prefixVariable5 = ob_get_clean();
+echo $_prefixVariable5;?>
+" alt="">
+								<span class="over1"></span>
+								<span class="over2"><img src="../images/<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img2'];
+$_prefixVariable6 = ob_get_clean();
+echo $_prefixVariable6;?>
+" alt=""></span><span
+									class="ic1"></span><span class="txt1"></span><span
+									class="txt1"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['name'];
+$_prefixVariable7 = ob_get_clean();
+echo $_prefixVariable7;?>
+</span></a>
+							<?php }?>
+						</li>
 						<?php }
 }
 ?>

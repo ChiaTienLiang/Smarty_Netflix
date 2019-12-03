@@ -1,29 +1,25 @@
 <?php
 require_once './backend/sql.php';
-require_once './class/MsgClass.php';
+require_once './class/CashClass.php';
+require_once './class/VideoClass.php';
 
-$getMsg = new Msg($mysqli);
+$cash = new Cash($mysqli);
+$video = new Video($mysqli);
 
 switch ($_POST['todo']) {
-    // case 'addMsg':
-    //     $Msg = $_POST['Msg'];
-    //     $token = $_POST['key'];
-    //     $return = $getMsg->addMsg($Msg, $token);
-    //     echo json_encode($return);
-    //     break;
-    // case 'changMsg':
-    //     $Msg = $_POST['Msg'];
-    //     $id = $_POST['id'];
-    //     $token = $_POST['key'];
-    //     $return = $getMsg->changMsg($Msg, $id, $token);
-    //     echo json_encode($return);
-    //     break;
-    // case 'delMsg':
-    //     $id = $_POST['id'];
-    //     $token = $_POST['key'];
-    //     $return = $getMsg->delMsg($id, $token);
-    //     echo json_encode($return);
-    //     break;
+    case 'deposit':
+        $moneyId = $_POST['moneyId'];
+        $token =  $_COOKIE['token'];
+        $return = $cash->deposit($moneyId, $token);
+        echo json_encode($return);
+        break;
+    case 'buyVideo':
+        $videoId = $_POST['videoId'];
+        $token =  $_COOKIE['token'];
+        $videoData = $video->getPrice($videoId);
+        $return = $cash->buyVideo($videoId, $token, $videoData['price']);
+        echo json_encode($return);
+        break;
     default:
         echo json_encode(false);
         break;

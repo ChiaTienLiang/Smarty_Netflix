@@ -73,9 +73,6 @@ class Member
                 $this->memberId = $memberData->id;
                 $this->level = $memberData->level;
 
-                $_SESSION['name'] = $memberData->name;
-                $_SESSION['level'] = $memberData->level;
-                $_SESSION['memberId'] = $memberData->id;
                 mysqli_close($this->mysqli);
                 mysqli_free_result($result);
                 $return = [

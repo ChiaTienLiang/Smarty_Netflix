@@ -60,7 +60,7 @@
                                             {foreach $money as $value}
                                             <tr>
                                                 <td><input type="radio" name="jkoprice" id="jko{{$value.id}}"
-                                                        value={{$value.id}} checked
+                                                        value={{$value.id}}
                                                         onclick="radioChang('{{$value.id}}')">
                                                     <label id="price{{$value.id}}" for="jko{{$value.price}}">NT$
                                                         {{$value.price}}</label></td>
@@ -137,13 +137,13 @@
                                                                 <h6 class="login" for="password">信用卡到期日和安全碼:</h6>
                                                                 <div class="controls">
                                                                     <input class="span1" type="text" id="cardMonth"
-                                                                        name="password"
-                                                                        placeholder="月"><span>&emsp;&ensp;</span>
+                                                                        name="password" placeholder="月"
+                                                                        maxlength=2><span>&emsp;&ensp;</span>
                                                                     <input class="span1" type="text" id="cardYear"
-                                                                        name="password"
-                                                                        placeholder="年"><span>&emsp;&ensp;</span>
+                                                                        name="password" placeholder="年"
+                                                                        maxlength=2><span>&emsp;&ensp;</span>
                                                                     <input class="span1" type="text" id="cardSafe"
-                                                                        name="password" placeholder="安全碼">
+                                                                        name="password" placeholder="安全碼" maxlength=3>
                                                                 </div>
                                                                 <span class="month year safe" id="errorDate"></span>
                                                             </div>

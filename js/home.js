@@ -12,7 +12,6 @@ $(document).ready(function () {
             success: function (res) {
                 res = JSON.parse(res);
                 if (res === true) {
-
                     let timerInterval
                     Swal.fire({
                         title: '頁面將於3秒後進行跳轉',

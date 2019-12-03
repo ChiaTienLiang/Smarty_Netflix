@@ -7,21 +7,20 @@
  */
 require_once '../libs/Smarty.class.php';
 require_once 'sql.php';
+require_once '../class/CashClass.php';
 $smarty = new Smarty;
-//$smarty->force_compile = true;
 $smarty->debugging = true;
-// $smarty->caching = true;
-// $smarty->cache_lifetime = 120;
+$Cash = new Cash($mysqli);
 
 /*
  **撈金額資料
  */
-$sql = "SELECT * FROM moneycategory ";
-$result = mysqli_query($mysqli, $sql);
-$num = mysqli_num_rows($result); //取得數量
-for ($i = 0; $i < $num; $i++) {
-    $search[$i] = mysqli_fetch_assoc($result);
-}
-$smarty->assign("money", $search);
+if (isset($_COOKIE['token'])) {
+    $token = $_COOKIE['token'];
+    $member = $Cash->checkToken($token);
+    $cashList = $Cash->list();
 
-$smarty->display('../templates/buy.html');
+    $smarty->assign("money", $cashList);
+
+    $smarty->display('../templates/buy.html');
+} else header('Location:home_index.php');
