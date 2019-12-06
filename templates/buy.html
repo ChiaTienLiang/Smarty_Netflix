@@ -18,26 +18,12 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="../js/buy.js"></script>
+    <script src="../js/home.js"></script>
 </head>
 
 <body class="subpage">
     <div id="main">
-
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="span12">
-                        <div class="header_inner clearfix">
-                            <div class="top1"><a href="../backend/home_index.php"
-                                    class="logo">C&emsp;Y&emsp;<span>T&emsp;V<span></span></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        {include file="../templates/header.tpl"}
         <div id="content">
             <div class="container">
                 <div class="row">
@@ -60,8 +46,7 @@
                                             {foreach $money as $value}
                                             <tr>
                                                 <td><input type="radio" name="jkoprice" id="jko{{$value.id}}"
-                                                        value={{$value.id}}
-                                                        onclick="radioChang('{{$value.id}}')">
+                                                        value={{$value.id}} onclick="radioChang('{{$value.id}}')">
                                                     <label id="price{{$value.id}}" for="jko{{$value.price}}">NT$
                                                         {{$value.price}}</label></td>
                                                 <td><label id="point{{$value.id}}" for="jko{{$value.price}}">TV幣 ×

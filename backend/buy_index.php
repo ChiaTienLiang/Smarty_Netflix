@@ -18,9 +18,12 @@ $Cash = new Cash($mysqli);
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
     $member = $Cash->checkToken($token);
+    $smarty->assign("memberName", $member->name);
+    $smarty->assign("memberId", $member->id);
+    $smarty->assign("memberLevel", $member->level);
+    $smarty->assign("memberWallet", $member->wallet);
+
     $cashList = $Cash->list();
-
     $smarty->assign("money", $cashList);
-
     $smarty->display('../templates/buy.html');
 } else header('Location:home_index.php');

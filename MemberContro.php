@@ -13,6 +13,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit;
     }
 }
+if (isset($_COOKIE['token'])) {
+    $token = $_COOKIE['token'];
+    $memberData = $member->checkToken($token);
+}
+
 
 switch ($_POST['todo']) {
     case 'login':
@@ -20,7 +25,7 @@ switch ($_POST['todo']) {
         echo json_encode($return);
         break;
     case 'logout':
-        $return = $member->logout();
+        $return = $member->logout($memberData->id);
         echo json_encode($return);
         break;
     case 'signUp':
@@ -30,6 +35,16 @@ switch ($_POST['todo']) {
             $return =  $member->signUp($name, $email, $password);
             echo json_encode($return);
         } else echo json_encode(false);
+        break;
+    case 'stopPms':
+        $memberId = $_POST['memberId'];
+        $return =  $member->stopPms($memberId);
+        echo json_encode($return);
+        break;
+    case 'restore':
+        $memberId = $_POST['memberId'];
+        $return =  $member->restore($memberId);
+        echo json_encode($return);
         break;
     default:
         echo json_encode(false);

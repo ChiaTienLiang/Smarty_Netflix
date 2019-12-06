@@ -13,9 +13,13 @@ class Token
         $this->mysqli = $mysqli;
         $this->date =  date("Y-m-d H:i:s");
     }
+
+    /**
+     * 比對token
+     */
     public function checkToken($token)
     {
-        $sql = "SELECT * FROM member Where token= ?"; //確認該token是否存在
+        $sql = "SELECT * FROM member Where token= ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('s', $token);
         $stmt->execute();

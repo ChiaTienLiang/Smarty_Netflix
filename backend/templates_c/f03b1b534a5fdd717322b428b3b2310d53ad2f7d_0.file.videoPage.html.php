@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-03 09:28:18
+/* Smarty version 3.1.33, created on 2019-12-05 14:27:49
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\videoPage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5de61ca2e132f5_33541133',
+  'unifunc' => 'content_5de8a365b34177_51715372',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f03b1b534a5fdd717322b428b3b2310d53ad2f7d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\videoPage.html',
-      1 => 1575361685,
+      1 => 1575527265,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5de61ca2e132f5_33541133 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5de8a365b34177_51715372 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +70,7 @@ echo $_prefixVariable1;?>
 </h1>
                         <div class="thumb6">
                             <div class="thumbnail clearfix">
-                                <figure class=""><img src="../images/<?php ob_start();
+                                <figure class=""><img src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['videoImg1']->value;
 $_prefixVariable2 = ob_get_clean();
 echo $_prefixVariable2;?>
@@ -113,7 +113,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
 ?>
                         <li class="span4 isotope-element isotope-filter1">
                             <?php if ($_smarty_tpl->tpl_vars['value']->value['isbuy'] === true) {?>
-                            <img src="../images/<?php ob_start();
+                            <img src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['videoImg1']->value;
 $_prefixVariable4 = ob_get_clean();
 echo $_prefixVariable4;?>
@@ -130,7 +130,7 @@ echo $_prefixVariable6;?>
                             <h3 class="isbuy">已購買</h3>
                             <?php } else { ?>
                             <?php if ($_smarty_tpl->tpl_vars['value']->value['price'] > $_smarty_tpl->tpl_vars['memberWallet']->value) {?>
-                            <img src="../images/<?php ob_start();
+                            <img src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['videoImg1']->value;
 $_prefixVariable7 = ob_get_clean();
 echo $_prefixVariable7;?>
@@ -146,7 +146,7 @@ $_prefixVariable9 = ob_get_clean();
 echo $_prefixVariable9;?>
 </h3>
                             <?php } else { ?>
-                            <img src="../images/<?php ob_start();
+                            <img src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['videoImg1']->value;
 $_prefixVariable10 = ob_get_clean();
 echo $_prefixVariable10;?>

@@ -30,16 +30,15 @@
 						{for $foo=0 to $value|count-1}
 						<li class="nav2 span3">
 							{if $memberLevel === null}
-							<a href="#"><img src="../images/{{$value.$foo.img1}}" alt="">
+							<a href="#"><img src="{{$value.$foo.img1}}" alt="">
 								<span class="over1"></span>
-								<span class="over2"><img src="../images/{{$value.$foo.img2}}" alt=""></span><span
+								<span class="over2"><img src="{{$value.$foo.img2}}" alt=""></span><span
 									class="ic1"></span><span class="txt1"></span><span
 									class="txt1">{{$value.$foo.name}}</span></a>
 							{else}
-							<a href="videoPage_index.php?id={{$value.$foo.id}}"><img
-									src="../images/{{$value.$foo.img1}}" alt="">
+							<a href="videoPage_index.php?id={{$value.$foo.id}}"><img src="{{$value.$foo.img1}}" alt="">
 								<span class="over1"></span>
-								<span class="over2"><img src="../images/{{$value.$foo.img2}}" alt=""></span><span
+								<span class="over2"><img src="{{$value.$foo.img2}}" alt=""></span><span
 									class="ic1"></span><span class="txt1"></span><span
 									class="txt1">{{$value.$foo.name}}</span></a>
 							{/if}

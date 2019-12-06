@@ -6,6 +6,7 @@ $(document).ready(function () {
     let monthRule = /^[0-1][0-9]$/;
     let yearRule = /^[2-9][0-9]$/;
     let safeRule = /^\d{3}$/;
+    
     /**
      * 檢查名字是否空白
      */
@@ -26,6 +27,7 @@ $(document).ready(function () {
             nameCheck2 = false;
         }
     });
+    
     $("#lastName").blur(function () {
         if (nameRule.test($("#lastName").val())) {
             $(".last").text("");

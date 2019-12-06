@@ -25,26 +25,30 @@ if (isset($_COOKIE['token'])) {
     $smarty->assign("memberLevel", $member->level);
     $smarty->assign("memberWallet", $member->wallet);
 
-    $total = $Video->countVideo();
+    // $total = $Video->countVideo();
     if (isset($_GET['id'])) {
         $videoId = (int) $_GET['id'];
-        if (0 < $videoId && $videoId <= $total)
-            $videoId = $videoId;
-        else $videoId = 1;
+        // if (0 < $videoId && $videoId <= $total)
+        //     $videoId = $videoId;
+        // else $videoId = 1;
     } else $videoId = 1;
 
     $videoData = $Video->singalVideo($videoId);
-    $episodes = $Video->episodeList($member->id, $videoId);
-    // $episodes = $Video->getEpisodes($videoId);
-    // $shopHistory = $Video->shopHistory($member->id, $videoId);
+    if ($videoData === null) {
+        header('Location:home_index.php');
+    } else {
+        $episodes = $Video->episodeList($member->id, $videoId);
+        // $episodes = $Video->getEpisodes($videoId);
+        // $shopHistory = $Video->shopHistory($member->id, $videoId);
 
-    $smarty->assign("videoName", $videoData->name);
-    $smarty->assign("videoDes", $videoData->descript);
-    $smarty->assign("videoImg1", $videoData->img1);
-    $smarty->assign("videoImg2", $videoData->img2);
-    $smarty->assign("episodes", $episodes);
+        $smarty->assign("videoName", $videoData->name);
+        $smarty->assign("videoDes", $videoData->descript);
+        $smarty->assign("videoImg1", $videoData->img1);
+        $smarty->assign("videoImg2", $videoData->img2);
+        $smarty->assign("episodes", $episodes);
 
-    $smarty->display('../templates/videoPage.html');
+        $smarty->display('../templates/videoPage.html');
+    }
 } else {
     header('Location:home_index.php');
     exit;

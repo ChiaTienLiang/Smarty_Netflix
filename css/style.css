@@ -77,6 +77,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .menu > li > a:hover .over2, .menu > li.active > a .over2, .menu > li.sfHover > a .over2{opacity: 1; filter: alpha(opacity=100);}
 
 tbody > tr > td > label{display: inline; padding: 20px; margin: 20px;}
+
 tbody > tr > td {height:50px;padding: 20px;}
 
 .video {outline:none;}
@@ -275,11 +276,11 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 /* ============================= accordion ====================== */
-.accordion{ margin-bottom: 20px;}
+/* .accordion{ margin-top: 35px;} */
 .accordion-group{ margin-bottom: 2px; border: none; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
 .accordion-heading{border-bottom: 0;}
-.accordion-heading .accordion-toggle{text-decoration: none; display: block; padding: 12px 12px 12px 50px;cursor: pointer; font-size: 16px; line-height: 22px; font-weight: bold; color: #faf7eb; background: url(../images/accordion1.jpg) 12px 11px no-repeat #0e2859;}
-.accordion-heading .accordion-toggle:hover{ text-decoration: none; color: #fff; background: url(../images/accordion1_over.jpg) 12px 11px no-repeat #1a3974;}
+.accordion-heading .accordion-toggle{text-decoration: none; display: block; padding: 12px 12px 12px 12px;cursor: pointer; font-size: 16px; line-height: 22px; font-weight: bold; color: #faf7eb; background: 12px 11px no-repeat #0e2859;margin-top: 10px;text-align: center;}
+.accordion-heading .accordion-toggle:hover{ text-decoration: none; color: #fff; background: 12px 11px no-repeat #1a3974;}
 .accordion-inner{ background: #001437; border-top: none; padding: 10px 15px;}
 
 

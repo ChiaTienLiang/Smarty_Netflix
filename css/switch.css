@@ -1,0 +1,58 @@
+.video{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+td{
+  max-width: 110px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+h2{padding: 0px 0px 20px 0px}
+textarea{resize : none;}
+
+.image-preview-wrapper{
+  display: block;
+  max-width: 310px;
+  max-height: 310px;
+  width: 100%;
+  border: 2px solid #cccccc;
+  margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.spinner-wrapper {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.opacity-1 {
+  opacity: 1;
+}
+.Img{
+  width: 200px;
+  height: 200px;
+  position: relative;
+  /* display: inline-block; */
+}
+#showImg1,#showImg2{
+
+  overflow:hidden;
+  max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;
+}

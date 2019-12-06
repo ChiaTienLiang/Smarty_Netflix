@@ -2,7 +2,7 @@ $(document).ready(function () {
     /**
     * 登出
     */
-    $("#logout").click(function () {
+    $(".logout").click(function () {
         $.ajax({
             type: "POST", //傳送方式
             url: "../MemberContro.php", //傳送目的地

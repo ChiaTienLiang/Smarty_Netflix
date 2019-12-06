@@ -11,9 +11,6 @@ require_once '../class/VideoClass.php';
 
 $smarty = new Smarty;
 $smarty->debugging = true;
-//$smarty->force_compile = true;
-// $smarty->caching = true;
-// $smarty->cache_lifetime = 120;
 
 $Video = new Video($mysqli);
 
@@ -21,7 +18,15 @@ $Video = new Video($mysqli);
  **撈全部影片資料
  */
 $search = $Video->allVideo();
-$smarty->assign("res", $search);
+$num = ceil(count($search) / 4);
+for ($i = 0; $i < $num; $i++) {
+    for ($j = 0; $j < 4; $j++) {
+        if ((4 * $i + $j) < count($search))
+            $newSearch[$i][$j] = $search[4 * $i + $j];
+    }
+}
+
+$smarty->assign("res", $newSearch);
 
 /**
  * 撈登入資料

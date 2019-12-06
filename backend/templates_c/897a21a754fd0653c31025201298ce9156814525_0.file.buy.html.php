@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-02 03:11:53
+/* Smarty version 3.1.33, created on 2019-12-05 16:58:06
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\buy.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5de472e94d5c20_98709904',
+  'unifunc' => 'content_5de8c69eb14d23_24795898',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '897a21a754fd0653c31025201298ce9156814525' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\buy.html',
-      1 => 1575252711,
+      1 => 1575450521,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5de472e94d5c20_98709904 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5de8c69eb14d23_24795898 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -51,22 +52,8 @@ function content_5de472e94d5c20_98709904 (Smarty_Internal_Template $_smarty_tpl)
 
 <body class="subpage">
     <div id="main">
-
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="span12">
-                        <div class="header_inner clearfix">
-                            <div class="top1"><a href="../backend/home_index.php"
-                                    class="logo">C&emsp;Y&emsp;<span>T&emsp;V<span></span></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        <?php $_smarty_tpl->_subTemplateRender("file:../templates/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
         <div id="content">
             <div class="container">
                 <div class="row">
@@ -101,8 +88,7 @@ echo $_prefixVariable1;?>
 echo $_smarty_tpl->tpl_vars['value']->value['id'];
 $_prefixVariable2 = ob_get_clean();
 echo $_prefixVariable2;?>
-
-                                                        onclick="radioChang('<?php ob_start();
+ onclick="radioChang('<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value['id'];
 $_prefixVariable3 = ob_get_clean();
 echo $_prefixVariable3;?>

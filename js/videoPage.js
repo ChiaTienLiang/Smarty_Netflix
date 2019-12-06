@@ -3,8 +3,6 @@
 //     $('#myModal').hide();
 // })
 
-
-
 /**
  * 已購買
  */
@@ -16,7 +14,6 @@ function watchVideo(e) {
     $("html").animate({
         scrollTop: last
     }, 1000);
-
 
 }
 
@@ -35,7 +32,7 @@ function buyVideo(e) {
         cancelButtonText: '取消',
     })
         .then((result) => {
-            if (result.value == true) { //sweetalert2 彈窗選確定
+            if (result.value === true) { //sweetalert2 彈窗選確定
                 $.ajax({
                     type: "POST", //傳送方式
                     url: "../CashContro.php", //傳送目的地
@@ -46,24 +43,24 @@ function buyVideo(e) {
                     success: function (res) {
                         res = JSON.parse(res);
                         console.log(res);
-                        // if (res['success'] === true) {
-                        //     Swal.fire({
-                        //         // position: 'top',
-                        //         icon: 'success',
-                        //         title: '購買完成!',
-                        //         showConfirmButton: false,
-                        //         timer: 1500
-                        //     }).then(function () {
-                        //         // window.location.href = "../backend/home_index.php"
-                        //         // location.reload();
-                        //     });
-                        // } else {
-                        //     Swal.fire({
-                        //         position: 'top',
-                        //         icon: 'error',
-                        //         title: '失敗!',
-                        //     })
-                        // }
+                        if (res === true) {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '購買完成!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                // window.location.href = "../backend/home_index.php"
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: '失敗!',
+                            })
+                        }
                     },
                     error: function (error) {
                         console.log(error);

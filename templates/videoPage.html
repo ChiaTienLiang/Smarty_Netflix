@@ -30,7 +30,7 @@
                         <h1 class="text-center">{{$videoName}}</h1>
                         <div class="thumb6">
                             <div class="thumbnail clearfix">
-                                <figure class=""><img src="../images/{{$videoImg1}}" alt=""></figure>
+                                <figure class=""><img src="{{$videoImg1}}" alt=""></figure>
 
                             </div>
                         </div>
@@ -61,16 +61,16 @@
                         {foreach $episodes as $value}
                         <li class="span4 isotope-element isotope-filter1">
                             {if $value.isbuy === true}
-                            <img src="../images/{{$videoImg1}}" alt="" onclick="watchVideo('{{$value.id}}')">
+                            <img src="{{$videoImg1}}" alt="" onclick="watchVideo('{{$value.id}}')">
                             <h5>{{$value.episode}}</h5>
                             <h3 class="isbuy">已購買</h3>
                             {else}
                             {if $value.price > $memberWallet}
-                            <img src="../images/{{$videoImg1}}" alt="" onclick="noMoney()">
+                            <img src="{{$videoImg1}}" alt="" onclick="noMoney()">
                             <h5>{{$value.episode}}</h5>
                             <h3 class="isbuy">${{$value.price}}</h3>
                             {else}
-                            <img src="../images/{{$videoImg1}}" alt="" onclick="buyVideo('{{$value.id}}')">
+                            <img src="{{$videoImg1}}" alt="" onclick="buyVideo('{{$value.id}}')">
                             <h5>{{$value.episode}}</h5>
                             <h3 class="isbuy">${{$value.price}}</h3>
                             {/if}
