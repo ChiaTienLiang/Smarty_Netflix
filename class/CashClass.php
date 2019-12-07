@@ -1,5 +1,6 @@
 <?php
 require_once 'TokenClass.php';
+
 /**
  * 金錢相關
  */
@@ -51,9 +52,7 @@ class Cash extends Token
         $memberData = Token::checkToken($token);
         $money = $this->wallet($moneyId);
 
-        /**
-         * 新增儲值紀錄
-         */
+        ## 新增儲值紀錄
         $sql = "INSERT INTO deposit(memberId,price,point,create_at)VALUES(?,?,?,?)";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('iiis', $memberData->id, $money->price, $money->point, $this->date);
@@ -82,19 +81,36 @@ class Cash extends Token
     public function buyVideo($viedoId, $token, $price)
     {
         $memberData = Token::checkToken($token);
-        /**
-         * 新增購買紀錄
-         */
+
+        ## 新增購買紀錄
         $sql = "INSERT INTO shopping(memberId,episodeId,cost,create_at)VALUES(?,?,?,?)";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('iiis', $memberData->id, $viedoId, $price, $this->date);
         $stmt->execute();
 
-        /**
-         * 錢包扣款
-         */
+        ## 錢包扣款
         $total = $memberData->wallet - $price;
         $return = $this->updateWallet($total, $memberData->id);
         return $return;
+    }
+
+    /**
+     * 該會員的儲值紀錄
+     */
+    public function memberDeposit($memberId)
+    {
+        $sql = "SELECT * FROM deposit WHERE memberId = ? ";
+        $stmt =  $this->mysqli->prepare($sql);
+        $stmt->bind_param('i', $memberId);
+        $result = $stmt->execute();
+        if ($result === true) {
+            $result = $stmt->get_result();
+            $num = mysqli_num_rows($result);
+            for ($i = 0; $i < $num; $i++) {
+                $search[$i] = mysqli_fetch_assoc($result);
+            }
+        } else $search = false;
+        mysqli_close($this->mysqli);
+        return $search;
     }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-05 16:58:06
+/* Smarty version 3.1.33, created on 2019-12-07 14:10:21
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\buy.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5de8c69eb14d23_24795898',
+  'unifunc' => 'content_5deb424d725842_37999638',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '897a21a754fd0653c31025201298ce9156814525' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\buy.html',
-      1 => 1575450521,
+      1 => 1575688580,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5de8c69eb14d23_24795898 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5deb424d725842_37999638 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +47,9 @@ function content_5de8c69eb14d23_24795898 (Smarty_Internal_Template $_smarty_tpl)
 >
     <?php echo '<script'; ?>
  src="../js/buy.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="../js/home.js"><?php echo '</script'; ?>
 >
 </head>
 

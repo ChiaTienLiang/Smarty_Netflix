@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CYTV Admin Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your keywords">
+    <meta name="author" content="Your name">
+    <link rel="icon" href="../images/icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <!-- <link href="../css/butStyle.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/supersized.core.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="../css/switch.css" type="text/css" media="screen">
+    <script src="../js/memberCenter.js"></script>
+    <script src="../js/home.js"></script>
+</head>
+
+<body class="subpage">
+    <div id="main">
+        {include file="../templates/header.tpl"}
+        <div id="content">
+            <div class="container">
+                <div class="row">
+                    <div class="span3">
+                        <div class="thumb9">
+                            <div class="thumbnail clearfix">
+                                <div id="jkoleftdiv">
+                                    <div class="accordion" id="accordion1">
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" id="memberBtn">
+                                                    儲值紀錄
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" id="videoBtn">
+                                                    影片購買紀錄
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span9 tableDiv">
+
+                        <!-- 儲值紀錄 -->
+                        <table class="table table-striped" id="memberData">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>金額</th>
+                                    <th>點數</th>
+                                    <th>購買時間</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {foreach $memberDeposit as $deposit}
+                                <tr>
+                                    <td>{{$deposit.id}}</td>
+                                    <td>{{$deposit.price}}</td>
+                                    <td>{{$deposit.point}}</td>
+                                    <td>{{$deposit.create_at}}</td>
+                                </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
+
+                        <!-- 影片購買紀錄 -->
+                        <table class="table table-striped" id="videoData">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>影片</th>
+                                    <th>金額</th>
+                                    <th>購買時間</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- {foreach $allVideo as $video}
+                                <tr>
+                                    <td>{{$video.id}}</td>
+                                    <td>{{$video.name}}</td>
+                                    <td>{{$video.descript}}</td>
+                                    {if $video.upload === "1"}
+                                    <td>上架</td>
+                                    <td> <label class="switch video">
+                                            <button type="button" class="btn btn-danger " id="shelf{{$video.id}}"
+                                                onclick="down('{{$video.id}}')">下架</button>
+                                            {else}
+                                    <td>已下架</td>
+                                    <td> <label class="switch video">
+                                            <button type="button" class="btn btn-success" id="shelf{{$video.id}}"
+                                                onclick="up('{{$video.id}}')">上架</button>
+                                            {/if}
+                                            <span class="slider round"></span>
+                                        </label></td>
+
+                                </tr>
+                                {/foreach} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

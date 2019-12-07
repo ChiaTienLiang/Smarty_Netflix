@@ -99,7 +99,6 @@ class Video extends Token
         return $price;
     }
 
-
     /**
      * 比對購買紀錄
      */
