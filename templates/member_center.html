@@ -19,7 +19,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="stylesheet" href="../css/switch.css" type="text/css" media="screen">
-    <script src="../js/memberCenter.js"></script>
+    <script src="../js/member_center.js"></script>
     <script src="../js/home.js"></script>
 </head>
 
@@ -60,20 +60,22 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>金額</th>
+                                    <th>消費金額</th>
                                     <th>點數</th>
                                     <th>購買時間</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {foreach $memberDeposit as $deposit}
+                                {{if isset($memberDeposit)}}
+                                {{foreach $memberDeposit as $deposit}}
                                 <tr>
-                                    <td>{{$deposit.id}}</td>
+                                    <td>{{$deposit@index+1}}</td>
                                     <td>{{$deposit.price}}</td>
                                     <td>{{$deposit.point}}</td>
                                     <td>{{$deposit.create_at}}</td>
                                 </tr>
-                                {/foreach}
+                                {{/foreach}}
+                                {{/if}}
                             </tbody>
                         </table>
 
@@ -82,36 +84,38 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>影片</th>
-                                    <th>金額</th>
+                                    <th>片名</th>
+                                    <th>Episode</th>
+                                    <th>狀態</th>
                                     <th>購買時間</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- {foreach $allVideo as $video}
+                                {{if isset($shopingList)}}
+                                {{foreach $shopingList as $shop}}
                                 <tr>
-                                    <td>{{$video.id}}</td>
-                                    <td>{{$video.name}}</td>
-                                    <td>{{$video.descript}}</td>
-                                    {if $video.upload === "1"}
-                                    <td>上架</td>
-                                    <td> <label class="switch video">
-                                            <button type="button" class="btn btn-danger " id="shelf{{$video.id}}"
-                                                onclick="down('{{$video.id}}')">下架</button>
-                                            {else}
-                                    <td>已下架</td>
-                                    <td> <label class="switch video">
-                                            <button type="button" class="btn btn-success" id="shelf{{$video.id}}"
-                                                onclick="up('{{$video.id}}')">上架</button>
-                                            {/if}
-                                            <span class="slider round"></span>
-                                        </label></td>
-
+                                    <td>{{$shop@index+1}}</td>
+                                    <td>{{$shop.name}}</td>
+                                    <td>{{$shop.episode}}</td>
+                                    {{if $shop.upload === 1}}
+                                    <td class="onshelf" id="{{$shop.id}}">點擊觀看</td>
+                                    {{else}}
+                                    <td class="offshelf">已下架</td>
+                                    {{/if}}
+                                    <td>{{$shop.create_at}}</td>
                                 </tr>
-                                {/foreach} -->
+                                {{/foreach}}
                             </tbody>
                         </table>
                     </div>
+                    {foreach $shopingList as $shop}
+                    <div class="modal hide" id="Modal{{$shop.id}}" role="dialog">
+                        <video class="video" width="100%" height="100%" controls>
+                            <source src="../video/{{$shop.url}}" type="video/mp4">
+                        </video>
+                    </div>
+                    {/foreach}
+                    {{/if}}
                 </div>
             </div>
         </div>

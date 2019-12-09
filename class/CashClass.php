@@ -102,15 +102,16 @@ class Cash extends Token
         $sql = "SELECT * FROM deposit WHERE memberId = ? ";
         $stmt =  $this->mysqli->prepare($sql);
         $stmt->bind_param('i', $memberId);
-        $result = $stmt->execute();
-        if ($result === true) {
-            $result = $stmt->get_result();
-            $num = mysqli_num_rows($result);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $num = mysqli_num_rows($result);
+        if ($num > 0) {
             for ($i = 0; $i < $num; $i++) {
                 $search[$i] = mysqli_fetch_assoc($result);
             }
-        } else $search = false;
-        mysqli_close($this->mysqli);
+        } else {
+            $search = null;
+        }
         return $search;
     }
 }

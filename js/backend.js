@@ -2,15 +2,31 @@ $(document).ready(function () {
     let Rule = /^[\s\S]*.*[^\s][\s\S]*$/;
     let numCheck, nameCheck, priceCheck;
     $(".table").hide();
+    $(".myModal").hide();
+
     let numRule = /^([1-9][0-9]*){1,2}$/;
     let priceRule = /^([1-9][0-9]*){1,3}$/;
 
+    /**
+     * 上傳的圖片顯示(新增)
+     */
     $("#imgInput1").change(function () {
         readURL(this, 1);
     });
 
     $("#imgInput2").change(function () {
         readURL(this, 2);
+    });
+
+    /**
+     * 上傳的圖片顯示(編輯)
+     */
+    $("#editImg1").change(function () {
+        editImgUrl(this, 1);
+    });
+
+    $("#editImg2").change(function () {
+        editImgUrl(this, 2);
     });
 
     /**
@@ -62,25 +78,30 @@ $(document).ready(function () {
         }
     });
 
-
-
+    /**
+     * 左側按鈕
+     */
     $("#memberBtn").click(function () {
         $(".table").hide();
+        $("#modalDiv").hide();
         $("#memberData").show();
     })
 
     $("#videoBtn").click(function () {
         $(".table").hide();
+        $("#modalDiv").hide();
         $("#videoData").show();
     })
 
     $("#createBtn").click(function () {
         $(".table").hide();
+        $("#modalDiv").hide();
         $("#newVideo").show();
     })
 
     $("#uploadBtn").click(function () {
         $(".table").hide();
+        $("#modalDiv").hide();
         $("#uploadEp").show();
     })
 
@@ -158,20 +179,171 @@ $(document).ready(function () {
 
 
     });
+
+    /**
+     * 編輯影片資訊
+     */
+    $(".onshelf").click(function () {
+        var id = $(this).attr("id");
+        $("#myModal" + id).show();
+        $("#editModal" + id).show();
+        // let editName = $("#editName").val();
+        // let editDescript = $("#editDescript").val();
+        // let showEditImg1 = $("#showEditImg1").attr('src');
+        // let showEditImg2 = $("#showEditImg2").attr('src');
+        // console.log(id);
+    })
+
+    /**
+     * 編輯送出
+     */
+    $(".editSubmit").click(function () {
+        var id = $(this).attr("id");
+        id = id.substr(10);
+        img1 = $("#showEditImg1" + id).attr('src');
+        img2 = $("#showEditImg2" + id).attr('src');
+        // var ImgExt = new Array(".jpg", ".jpeg", ".gif", ".png");
+        if (($("#editName" + id).val() != "") && ($("#editDescript" + id).val() != "")
+            && (img1 != "../images/icon.png") && (img2 != "../images/icon.png")) {
+            $.ajax({
+                type: "POST",
+                url: "../VideoContro.php",
+                data: {
+                    todo: 'editVideo',
+                    id: id,
+                    name: $("#editName" + id).val(),
+                    des: $("#editDescript" + id).val(),
+                    img1: $("#showEditImg1" + id).attr('src'),
+                    img2: $("#showEditImg2" + id).attr('src'),
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    if (res === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '修改成功',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            // location.reload();
+                            $(".myModal").hide();
+                            // $("#videoData").show();
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
+                    }
+                },
+                error: function (error) {
+                    // console.log(error);
+                }
+            });
+        } else {
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: '資料未輸入完全!',
+            })
+        }
+
+    })
+
+    /**
+     * 取消編輯
+     */
+    $(".editCancel").click(function () {
+        $(".myModal").hide();
+        // var id = $(this).attr("id");
+        // $("#myModal" + id).hide();
+        // $("#editModal" + id).hide();
+    })
+
 })
 
-function readURL(input, num) {
+    /**
+     * loading
+     */
+    ; (function () {
+        function id(v) { return document.getElementById(v); }
+        function loadbar() {
+            var ovrl = id("overlay"),
+                prog = id("progress"),
+                stat = id("progstat"),
+                img = document.images,
+                c = 0,
+                tot = img.length;
+            if (tot == 0) return doneLoading();
+
+            function imgLoaded() {
+                c += 1;
+                var perc = ((100 / tot * c) << 0) + "%";
+                prog.style.width = perc;
+                stat.innerHTML = "Loading " + perc;
+                if (c === tot) return doneLoading();
+            }
+            function doneLoading() {
+                ovrl.style.opacity = 0;
+                setTimeout(function () {
+                    ovrl.style.display = "none";
+                }, 1200);
+            }
+            for (var i = 0; i < tot; i++) {
+                var tImg = new Image();
+                tImg.onload = imgLoaded;
+                tImg.onerror = imgLoaded;
+                tImg.src = img[i].src;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadbar, false);
+    }());
+
+/**
+ * 圖片顯示
+ */
+function editImgUrl(input, num) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            if (num === 1)
-                $("#showImg1").attr('src', e.target.result);
-            else
-                $("#showImg2").attr('src', e.target.result);
+            if (num === 1) {
+                $("#showEditImg1").attr('src', e.target.result);
+            }
+            else {
+                $("#showEditImg2").attr('src', e.target.result);
+            }
         }
         reader.readAsDataURL(input.files[0]);
     } else {
-        $("#showImg1").attr('src', "../images/icon.png");
+        if (num === 1)
+            $("#showEditImg1").attr('src', "../images/icon.png");
+        else
+            $("#showEditImg2").attr('src', "../images/icon.png");
+    }
+}
+
+
+function readURL(input, num) {
+    console.log(input.files);
+    console.log(input.files[0]);
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            if (num === 1) {
+                $("#showImg1").attr('src', e.target.result);
+            }
+            else {
+                $("#showImg2").attr('src', e.target.result);
+            }
+        }
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        if (num === 1)
+            $("#showImg1").attr('src', "../images/icon.png");
+        else
+            $("#showImg2").attr('src', "../images/icon.png");
     }
 }
 
@@ -289,7 +461,6 @@ function restore(e) {
 /**
  * 影片上架 
  */
-
 function up(e) {
     Swal.fire({
         title: '是否上架影片?',
@@ -398,8 +569,6 @@ function down(e) {
             }
         })
 }
-
-
 
 
 /**

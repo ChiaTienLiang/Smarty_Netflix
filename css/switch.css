@@ -56,3 +56,90 @@ textarea{resize : none;}
     right: 0;  
     margin: auto;
 }
+
+.offshelf{
+  color: maroon;
+}
+
+.onshelf{
+  color:rgb(57, 122, 219);
+}
+
+.onshelf:hover{
+  color: white;
+  cursor: pointer;
+}
+
+.myModal{
+  padding: 30px 0px;
+  background-color:rgba(27, 27, 27, 0.8);
+  
+  /* border:3px gray solid; */
+  /* margin: 5% 0px; */
+  
+}
+
+
+.myModal{
+  position: fixed;
+  top:0px;
+  text-align: center;
+  /* margin:10%; */
+  width: 100%;
+  height: 100%;
+} 
+
+.myModal table{
+  border-bottom:1px solid #dddddd ;
+}
+
+.modalFooter{
+  margin: auto;
+  
+}
+
+.modalFooter button{
+  width: 30%;
+  margin: 10px 50px;
+  height: 30px;
+  
+}
+
+.testMask{
+  width:50%;
+  margin: auto;
+  background-color:rgba(5, 5, 75);
+  border-radius:10px;
+}
+
+/* *{margin:0;}
+body{ font: 200 16px/1 sans-serif; } */
+
+
+#overlay{
+  position:fixed;
+  z-index:99999;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0);
+  transition: 1s 0.4s;
+}
+#progress{
+  height:1px;
+  background:#fff;
+  position:absolute;
+  width:0;                /* will be increased by JS */
+  top:50%;
+}
+#progstat{
+  font-size:0.7em;
+  letter-spacing: 3px;
+  position:absolute;
+  top:50%;
+  margin-top:-40px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+}

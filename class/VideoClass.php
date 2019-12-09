@@ -206,6 +206,8 @@ class Video extends Token
      */
     public function newVideo($name, $des, $img1, $img2)
     {
+        $name = str_replace("<", "&lt;", $name);
+        $des = str_replace("<", "&lt;", $des);
         $sql = "INSERT INTO videos(`name`, `descript`, `img1`, `img2`)" . "VALUES(?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ssss", $name, $des, $img1, $img2);
@@ -218,6 +220,7 @@ class Video extends Token
      */
     public function uploadEp($file, $epName, $videoId, $price)
     {
+        $epName = str_replace("<", "&lt;", $epName);
         $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
         $newName = uniqid(date('YmdHis'), true) . '.' . $fileExt;
         $filePath = 'video/' . $newName;
@@ -229,5 +232,40 @@ class Video extends Token
             $return = $stmt->execute();
             return $return;
         } else return $uploadSuccess;
+    }
+
+    /**
+     * 影片購買紀錄清單
+     */
+    public function shopingList($memberId)
+    {
+        $sql = "SELECT episodes.id,videos.name,episodes.episode,episodes.url,shopping.create_at,videos.upload FROM shopping,episodes,videos WHERE shopping.episodeId = episodes.id AND episodes.videoId = videos.id AND shopping.memberId = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param('i', $memberId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $num = mysqli_num_rows($result);
+        if ($num > 1) {
+            for ($i = 0; $i < $num; $i++) {
+                $shopingList[$i] = $result->fetch_assoc();
+            }
+        } else {
+            $shopingList = $result->fetch_assoc();
+        }
+        return $shopingList;
+    }
+
+    /**
+     * 修改影片資訊
+     */
+    public function editVideo($id, $name, $des, $img1, $img2)
+    {
+        $name = str_replace("<", "&lt;", $name);
+        $des = str_replace("<", "&lt;", $des);
+        $sql = "UPDATE videos SET name = ?, descript = ?, img1 = ?, img2 = ? WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssssi", $name, $des, $img1, $img2, $id);
+        $return = $stmt->execute();
+        return $return;
     }
 }

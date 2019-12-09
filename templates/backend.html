@@ -10,20 +10,25 @@
     <meta name="author" content="Your name">
     <link rel="icon" href="../images/icon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
-    <!-- <link href="../css/butStyle.css" rel="stylesheet"> -->
-
     <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/bootstrap-responsive.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/supersized.core.css" type="text/css" media="screen">
     <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <link rel="stylesheet" href="../css/switch.css" type="text/css" media="screen">
     <script src="../js/backend.js"></script>
     <script src="../js/home.js"></script>
 </head>
 
 <body class="subpage">
+    <div id="overlay">
+        <div id="progstat"></div>
+        <div id="progress"></div>
+        <!--    <img src="../images/1523644960_loading2.gif"> -->
+    </div>
+
     <div id="main">
         {include file="../templates/header.tpl"}
         <div id="content">
@@ -44,7 +49,7 @@
                                         <div class="accordion-group">
                                             <div class="accordion-heading">
                                                 <a class="accordion-toggle" id="videoBtn">
-                                                    影片管理
+                                                    影片編輯管理
                                                 </a>
                                             </div>
                                         </div>
@@ -83,7 +88,7 @@
                             <tbody>
                                 {foreach $allMember as $member}
                                 <tr>
-                                    <td>{{$member.id}}</td>
+                                    <td>{{$member@index+1}}</td>
                                     <td>{{$member.name}}</td>
                                     <td>{{$member.email}}</td>
                                     {if $member.permission === "1"}
@@ -109,35 +114,37 @@
                         <table class="table table-striped" id="videoData">
                             <thead>
                                 <tr>
-                                    <th>id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>descript</th>
                                     <th>目前狀態</th>
+                                    <th>編輯</th>
                                     <th>下架</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {foreach $allVideo as $video}
+                                {{foreach $allVideo as $video}}
                                 <tr>
-                                    <td>{{$video.id}}</td>
+                                    <td>{{$video@index+1}}</td>
                                     <td>{{$video.name}}</td>
                                     <td>{{$video.descript}}</td>
+                                    <td class="onshelf" id="{{$video.id}}">編輯
+                                    </td>
                                     {if $video.upload === "1"}
                                     <td>上架</td>
                                     <td> <label class="switch video">
-                                            <button type="button" class="btn btn-danger " id="shelf{{$video.id}}"
+                                            <button type="button" class="btn btn-danger down" id="shelf{{$video.id}}"
                                                 onclick="down('{{$video.id}}')">下架</button>
                                             {else}
                                     <td>已下架</td>
                                     <td> <label class="switch video">
-                                            <button type="button" class="btn btn-success" id="shelf{{$video.id}}"
+                                            <button type="button" class="btn btn-success up" id="shelf{{$video.id}}"
                                                 onclick="up('{{$video.id}}')">上架</button>
                                             {/if}
                                             <span class="slider round"></span>
                                         </label></td>
-
                                 </tr>
-                                {/foreach}
+                                {{/foreach}}
                             </tbody>
                         </table>
 
@@ -287,42 +294,97 @@
                                 </tr>
                             </tbody>
                         </table>
-
-                        <!-- 分集資訊 - 上下架 -->
-                        <!-- <table class="table table-striped" id="videoData">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Name</th>
-                                        <th>descript</th>
-                                        <th>下架</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {foreach $allVideo as $video}
-                                    <tr>
-                                        <td>{{$video.id}}</td>
-                                        <td>{{$video.name}}</td>
-                                        <td>{{$video.descript}}</td>
-                                        <td> <label class="switch video">
-                                                {if $video.upload === "1"}
-                                                <button type="button" class="btn btn-danger " id="shelf{{$video.id}}"
-                                                    onclick="down('{{$video.id}}')">下架</button>
-                                                {else}
-                                                <button type="button" class="btn btn-success" id="shelf{{$video.id}}"
-                                                    onclick="up('{{$video.id}}')">上架</button>
-                                                {/if}
-                                                <span class="slider round"></span>
-                                            </label></td>
-                                    </tr>
-                                    {/foreach}
-                                </tbody>
-                            </table> -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 影片編輯（Modal） -->
+    {{foreach $allVideo as $video }}
+    <div class="modal fade myModal" id="myModal{{$video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        data-toggle="modal" data-target="#myModal" aria-hidden="true">
+        <div class="modal-dialog testMask">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改影片資訊
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped editModal" id="editModal{{$video.id}}">
+                        <tbody>
+                            <tr>
+                                <td class="span3">影集名稱</td>
+                                <td>
+                                    <div>
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <div class="control-group">
+                                                <input class="span6" type="text" id="editName{{$video.id}}" name="videoName"
+                                                    value="{{$video.name}}">
+                                            </div>
+                                            <span class="name"></span>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">描述</td>
+                                <td>
+                                    <div id="fields">
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <span class="control-group">
+                                                <textarea class="span6" rows="5" type="text" id="editDescript{{$video.id}}"
+                                                    name="descript">{{$video.descript}}</textarea>
+                                        </form>
+                                    </div>
+                                    <span class="des"></span>
 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">上傳橫幅圖片</td>
+                                <td>
+                                    <div id="fields">
+                                        <form enctype="multipart/form-data">
+                                            <input class="span4" type="file" id="editImg1"
+                                                accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                            <div class="Img"><img id="showEditImg1{{$video.id}}" src="{{$video.img1}}" />
+                                            </div>
+                                            <span class="Img1"></span>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">上傳直幅圖片</td>
+                                <td>
+                                    <form enctype="multipart/form-data">
+                                        <input class="span4" type="file" id="editImg2"
+                                            accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                        <div class="Img"><img id="showEditImg2{{$video.id}}" src="{{$video.img2}}" />
+                                        </div>
+                                        <span class="Img2"></span>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <button type="button" class="btn btn-primary editSubmit" id="editSubmit{{$video.id}}">
+                        送出
+                    </button>
+                    <button type="button" class="btn btn-default editCancel" data-dismiss="myModal" id="editCancel{{$video.id}}">取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/foreach}}
+    <!-- /.modal -->
 </body>
 
 </html>

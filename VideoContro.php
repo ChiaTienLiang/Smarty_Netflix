@@ -40,6 +40,15 @@ if (isset($_POST['todo']) && ($memberData->level === 1)) {
             $return = $video->newVideo($name, $des, $img1, $img2);
             echo json_encode($return);
             break;
+        case 'editVideo':
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $des = $_POST['des'];
+            $img1 = $_POST['img1'];
+            $img2 = $_POST['img2'];
+            $return = $video->editVideo($id, $name, $des, $img1, $img2);
+            echo json_encode($return);
+            break;
         default:
             echo json_encode(false);
             break;

@@ -13,9 +13,6 @@ require_once '../class/CashClass.php';
 
 $smarty = new Smarty;
 $smarty->debugging = true;
-//$smarty->force_compile = true;
-// $smarty->caching = true;
-// $smarty->cache_lifetime = 120;
 
 $Member = new Member($mysqli);
 $Video = new Video($mysqli);
@@ -29,12 +26,14 @@ if (isset($_COOKIE['token'])) {
     $memberData = $Member->checkToken($token);
     if ($memberData->permission === 1) {
         $memberDeposit = $Cash->memberDeposit($memberData->id);
+        $shopingList = $Video->shopingList($memberData->id);
 
+        $smarty->assign("shopingList", $shopingList);
         $smarty->assign("memberDeposit", $memberDeposit);
         $smarty->assign("memberName", $memberData->name);
         $smarty->assign("memberId", $memberData->id);
         $smarty->assign("memberLevel", $memberData->level);
         $smarty->assign("memberWallet", $memberData->wallet);
-        $smarty->display('../templates/memberCenter.html');
+        $smarty->display('../templates/member_center.html');
     } else header('Location:home_index.php');
 } else header('Location:home_index.php');
