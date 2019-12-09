@@ -21,12 +21,16 @@ $(document).ready(function () {
     /**
      * 上傳的圖片顯示(編輯)
      */
-    $("#editImg1").change(function () {
-        editImgUrl(this, 1);
+    $(".editImg1").change(function () {
+        var id = $(this).attr("id");
+        id = id.substr(8);
+        editImgUrl(this, 1, id);
     });
 
-    $("#editImg2").change(function () {
-        editImgUrl(this, 2);
+    $(".editImg2").change(function () {
+        var id = $(this).attr("id");
+        id = id.substr(8);
+        editImgUrl(this, 2, id);
     });
 
     /**
@@ -304,23 +308,24 @@ $(document).ready(function () {
 /**
  * 圖片顯示
  */
-function editImgUrl(input, num) {
+function editImgUrl(input, num, id) {
+    console.log(id);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             if (num === 1) {
-                $("#showEditImg1").attr('src', e.target.result);
+                $("#showEditImg1" + id).attr('src', e.target.result);
             }
             else {
-                $("#showEditImg2").attr('src', e.target.result);
+                $("#showEditImg2" + id).attr('src', e.target.result);
             }
         }
         reader.readAsDataURL(input.files[0]);
     } else {
         if (num === 1)
-            $("#showEditImg1").attr('src', "../images/icon.png");
+            $("#showEditImg1" + id).attr('src', "../images/icon.png");
         else
-            $("#showEditImg2").attr('src', "../images/icon.png");
+            $("#showEditImg2" + id).attr('src', "../images/icon.png");
     }
 }
 

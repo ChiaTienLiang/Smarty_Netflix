@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-09 16:54:43
+/* Smarty version 3.1.33, created on 2019-12-09 18:15:52
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\backend.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5dee0bd3070bd2_76253145',
+  'unifunc' => 'content_5dee1ed82cd175_70611414',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '690f2e2f76f38a1b44044077aa2a38d3acfcf2b3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\backend.html',
-      1 => 1575881679,
+      1 => 1575886543,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5dee0bd3070bd2_76253145 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5dee1ed82cd175_70611414 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -526,16 +526,20 @@ echo $_prefixVariable28;?>
                                 <td>
                                     <div id="fields">
                                         <form enctype="multipart/form-data">
-                                            <input class="span4" type="file" id="editImg1"
-                                                accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                            <div class="Img"><img id="showEditImg1<?php ob_start();
+                                            <input class="span4 editImg1" type="file" id="editImg1<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
 $_prefixVariable29 = ob_get_clean();
 echo $_prefixVariable29;?>
-" src="<?php ob_start();
-echo $_smarty_tpl->tpl_vars['video']->value['img1'];
+"
+                                                accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                            <div class="Img"><img id="showEditImg1<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
 $_prefixVariable30 = ob_get_clean();
 echo $_prefixVariable30;?>
+" src="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['img1'];
+$_prefixVariable31 = ob_get_clean();
+echo $_prefixVariable31;?>
 " />
                                             </div>
                                             <span class="Img1"></span>
@@ -547,16 +551,20 @@ echo $_prefixVariable30;?>
                                 <td class="span3">上傳直幅圖片</td>
                                 <td>
                                     <form enctype="multipart/form-data">
-                                        <input class="span4" type="file" id="editImg2"
+                                        <input class="span4 editImg2" type="file" id="editImg2<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
+$_prefixVariable32 = ob_get_clean();
+echo $_prefixVariable32;?>
+"
                                             accept="image/gif, image/jpeg, image/png, image/jpg" />
                                         <div class="Img"><img id="showEditImg2<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable31 = ob_get_clean();
-echo $_prefixVariable31;?>
+$_prefixVariable33 = ob_get_clean();
+echo $_prefixVariable33;?>
 " src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['img2'];
-$_prefixVariable32 = ob_get_clean();
-echo $_prefixVariable32;?>
+$_prefixVariable34 = ob_get_clean();
+echo $_prefixVariable34;?>
 " />
                                         </div>
                                         <span class="Img2"></span>
@@ -569,15 +577,15 @@ echo $_prefixVariable32;?>
                 <div class="modal-footer" id="modalFooter">
                     <button type="button" class="btn btn-primary editSubmit" id="editSubmit<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable33 = ob_get_clean();
-echo $_prefixVariable33;?>
+$_prefixVariable35 = ob_get_clean();
+echo $_prefixVariable35;?>
 ">
                         送出
                     </button>
                     <button type="button" class="btn btn-default editCancel" data-dismiss="myModal" id="editCancel<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable34 = ob_get_clean();
-echo $_prefixVariable34;?>
+$_prefixVariable36 = ob_get_clean();
+echo $_prefixVariable36;?>
 ">取消
                     </button>
                 </div>
@@ -589,8 +597,8 @@ $_smarty_tpl->tpl_vars['video'] = $__foreach_video_3_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-$_prefixVariable35 = ob_get_clean();
-echo $_prefixVariable35;?>
+$_prefixVariable37 = ob_get_clean();
+echo $_prefixVariable37;?>
 
     <!-- /.modal -->
 </body>
