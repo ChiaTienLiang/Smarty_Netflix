@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-09 18:15:52
+/* Smarty version 3.1.33, created on 2019-12-10 17:58:00
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\backend.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5dee1ed82cd175_70611414',
+  'unifunc' => 'content_5def6c289f74a0_97626552',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '690f2e2f76f38a1b44044077aa2a38d3acfcf2b3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\backend.html',
-      1 => 1575886543,
+      1 => 1575971859,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5dee1ed82cd175_70611414 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5def6c289f74a0_97626552 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +58,7 @@ function content_5dee1ed82cd175_70611414 (Smarty_Internal_Template $_smarty_tpl)
     <div id="overlay">
         <div id="progstat"></div>
         <div id="progress"></div>
-        <!--    <img src="../images/1523644960_loading2.gif"> -->
+        
     </div>
 
     <div id="main">
@@ -83,6 +83,13 @@ function content_5dee1ed82cd175_70611414 (Smarty_Internal_Template $_smarty_tpl)
                                             <div class="accordion-heading">
                                                 <a class="accordion-toggle" id="videoBtn">
                                                     影片編輯管理
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" id="editEp">
+                                                    分集編輯管理
                                                 </a>
                                             </div>
                                         </div>
@@ -182,7 +189,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </tbody>
                         </table>
 
-                        <!-- 影集資訊 - 上下架 -->
+                        <!-- 影集資訊編輯 - 上下架 -->
                         <table class="table table-striped" id="videoData">
                             <thead>
                                 <tr>
@@ -211,20 +218,28 @@ echo $_smarty_tpl->tpl_vars['video']->index+1;
 $_prefixVariable9 = ob_get_clean();
 echo $_prefixVariable9;?>
 </td>
-                                    <td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['video']->value['name'];
+                                    <td id="newVname<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
 $_prefixVariable10 = ob_get_clean();
 echo $_prefixVariable10;?>
-</td>
-                                    <td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['video']->value['descript'];
+"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['name'];
 $_prefixVariable11 = ob_get_clean();
 echo $_prefixVariable11;?>
 </td>
-                                    <td class="onshelf" id="<?php ob_start();
+                                    <td id="newVdes<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
 $_prefixVariable12 = ob_get_clean();
 echo $_prefixVariable12;?>
+"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['descript'];
+$_prefixVariable13 = ob_get_clean();
+echo $_prefixVariable13;?>
+</td>
+                                    <td class="onshelf" id="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
+$_prefixVariable14 = ob_get_clean();
+echo $_prefixVariable14;?>
 ">編輯
                                     </td>
                                     <?php if ($_smarty_tpl->tpl_vars['video']->value['upload'] === "1") {?>
@@ -232,26 +247,26 @@ echo $_prefixVariable12;?>
                                     <td> <label class="switch video">
                                             <button type="button" class="btn btn-danger down" id="shelf<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable13 = ob_get_clean();
-echo $_prefixVariable13;?>
+$_prefixVariable15 = ob_get_clean();
+echo $_prefixVariable15;?>
 "
                                                 onclick="down('<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable14 = ob_get_clean();
-echo $_prefixVariable14;?>
+$_prefixVariable16 = ob_get_clean();
+echo $_prefixVariable16;?>
 ')">下架</button>
                                             <?php } else { ?>
                                     <td>已下架</td>
                                     <td> <label class="switch video">
                                             <button type="button" class="btn btn-success up" id="shelf<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable15 = ob_get_clean();
-echo $_prefixVariable15;?>
+$_prefixVariable17 = ob_get_clean();
+echo $_prefixVariable17;?>
 "
                                                 onclick="up('<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable16 = ob_get_clean();
-echo $_prefixVariable16;?>
+$_prefixVariable18 = ob_get_clean();
+echo $_prefixVariable18;?>
 ')">上架</button>
                                             <?php }?>
                                             <span class="slider round"></span>
@@ -262,8 +277,8 @@ $_smarty_tpl->tpl_vars['video'] = $__foreach_video_1_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-$_prefixVariable17 = ob_get_clean();
-echo $_prefixVariable17;?>
+$_prefixVariable19 = ob_get_clean();
+echo $_prefixVariable19;?>
 
                             </tbody>
                         </table>
@@ -336,7 +351,7 @@ echo $_prefixVariable17;?>
                                     <td colspan="2">
                                         <br>
                                         <button class="btn btn-primary btn-lg btn-block" data-toggle="button"
-                                            onclick="newVideo()">確認</button>
+                                            id="newVideoBtn">確認</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -395,25 +410,25 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['video']->value) {
 $_smarty_tpl->tpl_vars['video']->index++;
 $__foreach_video_2_saved = $_smarty_tpl->tpl_vars['video'];
-$_prefixVariable18 = ob_get_clean();
-echo $_prefixVariable18;?>
+$_prefixVariable20 = ob_get_clean();
+echo $_prefixVariable20;?>
 
                                                     　<option value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable19 = ob_get_clean();
-echo $_prefixVariable19;?>
+$_prefixVariable21 = ob_get_clean();
+echo $_prefixVariable21;?>
 "><?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['name'];
-$_prefixVariable20 = ob_get_clean();
-echo $_prefixVariable20;?>
+$_prefixVariable22 = ob_get_clean();
+echo $_prefixVariable22;?>
 </option>
                                                     <?php ob_start();
 $_smarty_tpl->tpl_vars['video'] = $__foreach_video_2_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-$_prefixVariable21 = ob_get_clean();
-echo $_prefixVariable21;?>
+$_prefixVariable23 = ob_get_clean();
+echo $_prefixVariable23;?>
 
                                                 </select>
                                             </form>
@@ -425,7 +440,7 @@ echo $_prefixVariable21;?>
                                     <td>
                                         <div id="fields">
                                             <form enctype="multipart/form-data">
-                                                <input class="span6" type="file" id="videoInput" accept="video/*" />
+                                                <input class="span6" type="file" id="videoInput" accept="video/*"/>
                                             </form>
                                         </div>
                                     </td>
@@ -437,6 +452,125 @@ echo $_prefixVariable21;?>
                                     </td>
                                 </tr>
                             </tbody>
+                        </table>
+
+                        <!-- 各影片分集列表 -->
+                        <div id="selectDiv">
+                            <form class="form-horizontal">
+                                <select name="epList" class="span6 epList" id="selectEp">
+                                    <?php ob_start();
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['allVideo']->value, 'video');
+$_smarty_tpl->tpl_vars['video']->index = -1;
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['video']->value) {
+$_smarty_tpl->tpl_vars['video']->index++;
+$__foreach_video_3_saved = $_smarty_tpl->tpl_vars['video'];
+$_prefixVariable24 = ob_get_clean();
+echo $_prefixVariable24;?>
+
+                                    　<option id="option<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
+$_prefixVariable25 = ob_get_clean();
+echo $_prefixVariable25;?>
+" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['id'];
+$_prefixVariable26 = ob_get_clean();
+echo $_prefixVariable26;?>
+">
+                                        <?php ob_start();
+echo $_smarty_tpl->tpl_vars['video']->value['name'];
+$_prefixVariable27 = ob_get_clean();
+echo $_prefixVariable27;?>
+</option>
+                                    <?php ob_start();
+$_smarty_tpl->tpl_vars['video'] = $__foreach_video_3_saved;
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable28 = ob_get_clean();
+echo $_prefixVariable28;?>
+
+                                </select>
+                            </form>
+                        </div>
+
+                        <table class="table table-striped epTable">
+                            <thead>
+                                <tr>
+                                    <th>話</th>
+                                    <th>Name</th>
+                                    <th>price</th>
+                                    <th>編輯</th>
+                                </tr>
+                            </thead>
+                            <?php ob_start();
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['test']->value, 'a');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+$_prefixVariable29 = ob_get_clean();
+echo $_prefixVariable29;?>
+
+                            <?php ob_start();
+$_smarty_tpl->tpl_vars['foo'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['foo']->step = 1;$_smarty_tpl->tpl_vars['foo']->total = (int) ceil(($_smarty_tpl->tpl_vars['foo']->step > 0 ? count($_smarty_tpl->tpl_vars['a']->value)-1+1 - (0) : 0-(count($_smarty_tpl->tpl_vars['a']->value)-1)+1)/abs($_smarty_tpl->tpl_vars['foo']->step));
+if ($_smarty_tpl->tpl_vars['foo']->total > 0) {
+for ($_smarty_tpl->tpl_vars['foo']->value = 0, $_smarty_tpl->tpl_vars['foo']->iteration = 1;$_smarty_tpl->tpl_vars['foo']->iteration <= $_smarty_tpl->tpl_vars['foo']->total;$_smarty_tpl->tpl_vars['foo']->value += $_smarty_tpl->tpl_vars['foo']->step, $_smarty_tpl->tpl_vars['foo']->iteration++) {
+$_smarty_tpl->tpl_vars['foo']->first = $_smarty_tpl->tpl_vars['foo']->iteration === 1;$_smarty_tpl->tpl_vars['foo']->last = $_smarty_tpl->tpl_vars['foo']->iteration === $_smarty_tpl->tpl_vars['foo']->total;
+$_prefixVariable30 = ob_get_clean();
+echo $_prefixVariable30;?>
+
+                            <tbody class="epBody<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['videoId'];
+$_prefixVariable31 = ob_get_clean();
+echo $_prefixVariable31;?>
+ epBodytest">
+                                <tr>
+                                    <td id="newNo<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['no'];
+$_prefixVariable32 = ob_get_clean();
+echo $_prefixVariable32;?>
+"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['no'];
+$_prefixVariable33 = ob_get_clean();
+echo $_prefixVariable33;?>
+</td>
+                                    <td id="newName<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['no'];
+$_prefixVariable34 = ob_get_clean();
+echo $_prefixVariable34;?>
+"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['episode'];
+$_prefixVariable35 = ob_get_clean();
+echo $_prefixVariable35;?>
+</td>
+                                    <td id="newPrice<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['no'];
+$_prefixVariable36 = ob_get_clean();
+echo $_prefixVariable36;?>
+"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['price'];
+$_prefixVariable37 = ob_get_clean();
+echo $_prefixVariable37;?>
+</td>
+                                    <td class="epEdit" id="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable38 = ob_get_clean();
+echo $_prefixVariable38;?>
+">點擊編輯</td>
+                                </tr>
+                            </tbody>
+                            <?php ob_start();
+}
+}
+$_prefixVariable39 = ob_get_clean();
+echo $_prefixVariable39;?>
+
+                            <?php ob_start();
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable40 = ob_get_clean();
+echo $_prefixVariable40;?>
+
                         </table>
                     </div>
                 </div>
@@ -450,14 +584,14 @@ $_smarty_tpl->tpl_vars['video']->index = -1;
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['video']->value) {
 $_smarty_tpl->tpl_vars['video']->index++;
-$__foreach_video_3_saved = $_smarty_tpl->tpl_vars['video'];
-$_prefixVariable22 = ob_get_clean();
-echo $_prefixVariable22;?>
+$__foreach_video_5_saved = $_smarty_tpl->tpl_vars['video'];
+$_prefixVariable41 = ob_get_clean();
+echo $_prefixVariable41;?>
 
     <div class="modal fade myModal" id="myModal<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable23 = ob_get_clean();
-echo $_prefixVariable23;?>
+$_prefixVariable42 = ob_get_clean();
+echo $_prefixVariable42;?>
 " tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         data-toggle="modal" data-target="#myModal" aria-hidden="true">
         <div class="modal-dialog testMask">
@@ -473,8 +607,8 @@ echo $_prefixVariable23;?>
                 <div class="modal-body">
                     <table class="table table-striped editModal" id="editModal<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable24 = ob_get_clean();
-echo $_prefixVariable24;?>
+$_prefixVariable43 = ob_get_clean();
+echo $_prefixVariable43;?>
 ">
                         <tbody>
                             <tr>
@@ -485,13 +619,13 @@ echo $_prefixVariable24;?>
                                             <div class="control-group">
                                                 <input class="span6" type="text" id="editName<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable25 = ob_get_clean();
-echo $_prefixVariable25;?>
-" name="videoName"
-                                                    value="<?php ob_start();
+$_prefixVariable44 = ob_get_clean();
+echo $_prefixVariable44;?>
+"
+                                                    name="editName" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['name'];
-$_prefixVariable26 = ob_get_clean();
-echo $_prefixVariable26;?>
+$_prefixVariable45 = ob_get_clean();
+echo $_prefixVariable45;?>
 ">
                                             </div>
                                             <span class="name"></span>
@@ -505,15 +639,16 @@ echo $_prefixVariable26;?>
                                     <div id="fields">
                                         <form id="ajax-contact-form" class="form-horizontal">
                                             <span class="control-group">
-                                                <textarea class="span6" rows="5" type="text" id="editDescript<?php ob_start();
+                                                <textarea class="span6" rows="5" type="text"
+                                                    id="editDescript<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable27 = ob_get_clean();
-echo $_prefixVariable27;?>
+$_prefixVariable46 = ob_get_clean();
+echo $_prefixVariable46;?>
 "
                                                     name="descript"><?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['descript'];
-$_prefixVariable28 = ob_get_clean();
-echo $_prefixVariable28;?>
+$_prefixVariable47 = ob_get_clean();
+echo $_prefixVariable47;?>
 </textarea>
                                         </form>
                                     </div>
@@ -528,18 +663,19 @@ echo $_prefixVariable28;?>
                                         <form enctype="multipart/form-data">
                                             <input class="span4 editImg1" type="file" id="editImg1<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable29 = ob_get_clean();
-echo $_prefixVariable29;?>
+$_prefixVariable48 = ob_get_clean();
+echo $_prefixVariable48;?>
 "
                                                 accept="image/gif, image/jpeg, image/png, image/jpg" />
                                             <div class="Img"><img id="showEditImg1<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable30 = ob_get_clean();
-echo $_prefixVariable30;?>
-" src="<?php ob_start();
+$_prefixVariable49 = ob_get_clean();
+echo $_prefixVariable49;?>
+"
+                                                    src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['img1'];
-$_prefixVariable31 = ob_get_clean();
-echo $_prefixVariable31;?>
+$_prefixVariable50 = ob_get_clean();
+echo $_prefixVariable50;?>
 " />
                                             </div>
                                             <span class="Img1"></span>
@@ -553,18 +689,18 @@ echo $_prefixVariable31;?>
                                     <form enctype="multipart/form-data">
                                         <input class="span4 editImg2" type="file" id="editImg2<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable32 = ob_get_clean();
-echo $_prefixVariable32;?>
+$_prefixVariable51 = ob_get_clean();
+echo $_prefixVariable51;?>
 "
                                             accept="image/gif, image/jpeg, image/png, image/jpg" />
                                         <div class="Img"><img id="showEditImg2<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable33 = ob_get_clean();
-echo $_prefixVariable33;?>
+$_prefixVariable52 = ob_get_clean();
+echo $_prefixVariable52;?>
 " src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['img2'];
-$_prefixVariable34 = ob_get_clean();
-echo $_prefixVariable34;?>
+$_prefixVariable53 = ob_get_clean();
+echo $_prefixVariable53;?>
 " />
                                         </div>
                                         <span class="Img2"></span>
@@ -577,15 +713,16 @@ echo $_prefixVariable34;?>
                 <div class="modal-footer" id="modalFooter">
                     <button type="button" class="btn btn-primary editSubmit" id="editSubmit<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable35 = ob_get_clean();
-echo $_prefixVariable35;?>
+$_prefixVariable54 = ob_get_clean();
+echo $_prefixVariable54;?>
 ">
                         送出
                     </button>
-                    <button type="button" class="btn btn-default editCancel" data-dismiss="myModal" id="editCancel<?php ob_start();
+                    <button type="button" class="btn btn-default editCancel" data-dismiss="myModal"
+                        id="editCancel<?php ob_start();
 echo $_smarty_tpl->tpl_vars['video']->value['id'];
-$_prefixVariable36 = ob_get_clean();
-echo $_prefixVariable36;?>
+$_prefixVariable55 = ob_get_clean();
+echo $_prefixVariable55;?>
 ">取消
                     </button>
                 </div>
@@ -593,14 +730,184 @@ echo $_prefixVariable36;?>
         </div>
     </div>
     <?php ob_start();
-$_smarty_tpl->tpl_vars['video'] = $__foreach_video_3_saved;
+$_smarty_tpl->tpl_vars['video'] = $__foreach_video_5_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-$_prefixVariable37 = ob_get_clean();
-echo $_prefixVariable37;?>
+$_prefixVariable56 = ob_get_clean();
+echo $_prefixVariable56;?>
 
     <!-- /.modal -->
+
+    <!-- Episode編輯（Modal） -->
+    <?php ob_start();
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['test']->value, 'a');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+$_prefixVariable57 = ob_get_clean();
+echo $_prefixVariable57;?>
+
+    <?php ob_start();
+$_smarty_tpl->tpl_vars['foo'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['foo']->step = 1;$_smarty_tpl->tpl_vars['foo']->total = (int) ceil(($_smarty_tpl->tpl_vars['foo']->step > 0 ? count($_smarty_tpl->tpl_vars['a']->value)-1+1 - (0) : 0-(count($_smarty_tpl->tpl_vars['a']->value)-1)+1)/abs($_smarty_tpl->tpl_vars['foo']->step));
+if ($_smarty_tpl->tpl_vars['foo']->total > 0) {
+for ($_smarty_tpl->tpl_vars['foo']->value = 0, $_smarty_tpl->tpl_vars['foo']->iteration = 1;$_smarty_tpl->tpl_vars['foo']->iteration <= $_smarty_tpl->tpl_vars['foo']->total;$_smarty_tpl->tpl_vars['foo']->value += $_smarty_tpl->tpl_vars['foo']->step, $_smarty_tpl->tpl_vars['foo']->iteration++) {
+$_smarty_tpl->tpl_vars['foo']->first = $_smarty_tpl->tpl_vars['foo']->iteration === 1;$_smarty_tpl->tpl_vars['foo']->last = $_smarty_tpl->tpl_vars['foo']->iteration === $_smarty_tpl->tpl_vars['foo']->total;
+$_prefixVariable58 = ob_get_clean();
+echo $_prefixVariable58;?>
+
+    <div class="modal fade epModal" id="epModal<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable59 = ob_get_clean();
+echo $_prefixVariable59;?>
+" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" data-toggle="modal" data-target="#myModal" aria-hidden="true">
+        <div class="modal-dialog testMask">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改影片資訊
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped editEpTable" id="editEpTable<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable60 = ob_get_clean();
+echo $_prefixVariable60;?>
+">
+                        <tbody>
+                            <tr>
+                                <td class="span3">分集名稱</td>
+                                <td>
+                                    <div id="fields">
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <div class="control-group">
+                                                第<input class="span1" type="text" id="epNum<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable61 = ob_get_clean();
+echo $_prefixVariable61;?>
+" name="epNum"
+                                                    value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['no'];
+$_prefixVariable62 = ob_get_clean();
+echo $_prefixVariable62;?>
+" maxlength=2>話
+                                                <input class="span5" type="text" id="epName<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable63 = ob_get_clean();
+echo $_prefixVariable63;?>
+" name="epName"
+                                                    value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['episode'];
+$_prefixVariable64 = ob_get_clean();
+echo $_prefixVariable64;?>
+">
+                                            </div>
+                                            <!-- <span class="epNum span1" id="errorEditNum<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable65 = ob_get_clean();
+echo $_prefixVariable65;?>
+"></span>
+                                            <span class="epName span2" id="errorEditName<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable66 = ob_get_clean();
+echo $_prefixVariable66;?>
+"></span> -->
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">價錢</td>
+                                <td>
+                                    <div id="fields">
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <div class="control-group">
+                                                <input class="span3" type="text" id="epPrice<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable67 = ob_get_clean();
+echo $_prefixVariable67;?>
+"
+                                                    name="epPrice" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['price'];
+$_prefixVariable68 = ob_get_clean();
+echo $_prefixVariable68;?>
+" maxlength=3>
+                                            </div>
+                                            <!-- <span class="epPrice span1" id="errorEditPrice<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable69 = ob_get_clean();
+echo $_prefixVariable69;?>
+"></span> -->
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">影集</td>
+                                <td>
+                                    <div id="fields">
+                                        <span><?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['name'];
+$_prefixVariable70 = ob_get_clean();
+echo $_prefixVariable70;?>
+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">上傳影片</td>
+                                <td>
+                                    <div id="fields">
+                                        <form enctype="multipart/form-data">
+                                            <input class="span6" type="file" id="videoEdit<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable71 = ob_get_clean();
+echo $_prefixVariable71;?>
+"
+                                             accept="video/*" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer modalFooter">
+                    <button type="button" class="btn btn-primary editEpSubmit" id="editEpSubmit<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable72 = ob_get_clean();
+echo $_prefixVariable72;?>
+">
+                        送出
+                    </button>
+                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal" id="editEpCancel<?php ob_start();
+echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
+$_prefixVariable73 = ob_get_clean();
+echo $_prefixVariable73;?>
+">取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php ob_start();
+}
+}
+$_prefixVariable74 = ob_get_clean();
+echo $_prefixVariable74;?>
+
+    <?php ob_start();
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable75 = ob_get_clean();
+echo $_prefixVariable75;?>
+
+    <!-- /.modal -->
+
 </body>
 
 </html><?php }

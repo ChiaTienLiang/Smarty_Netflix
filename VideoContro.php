@@ -49,6 +49,22 @@ if (isset($_POST['todo']) && ($memberData->level === 1)) {
             $return = $video->editVideo($id, $name, $des, $img1, $img2);
             echo json_encode($return);
             break;
+        case 'editEp':
+            $test = $_FILES["file"]["type"];
+            $file = $_FILES['file'];
+            $epName = $_POST['epName'];
+            $id = $_POST['id'];
+            $price = $_POST['price'];
+            $return = $video->editEp($file, $epName, $id, $price);
+            echo json_encode($return);
+            break;
+        case 'editEp_nofile':
+            $epName = $_POST['epName'];
+            $id = $_POST['id'];
+            $price = $_POST['price'];
+            $return = $video->editEp_nofile($epName, $id, $price);
+            echo json_encode($return);
+            break;
         default:
             echo json_encode(false);
             break;

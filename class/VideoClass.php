@@ -86,6 +86,24 @@ class Video extends Token
     }
 
     /**
+     * 撈全部影片所有集數資料(管理者)
+     */
+    public function allEpisodes()
+    {
+        $sql = "SELECT episodes.episode,episodes.id,episodes.price,episodes.id,episodes.videoId,videos.name FROM episodes,videos WHERE episodes.videoId=videos.id";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $num = mysqli_num_rows($result);
+        if ($num > 0) {
+            for ($i = 0; $i < $num; $i++) {
+                $episodes[$i] = $result->fetch_assoc();
+            }
+            return $episodes;
+        } else return $result->fetch_assoc();
+    }
+
+    /**
      * 撈單一集數價錢
      */
     public function getPrice($id)
@@ -119,7 +137,6 @@ class Video extends Token
         }
         return $shopHistory;
     }
-
 
     /**
      * 所有集數資訊及是否購買
@@ -265,6 +282,38 @@ class Video extends Token
         $sql = "UPDATE videos SET name = ?, descript = ?, img1 = ?, img2 = ? WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ssssi", $name, $des, $img1, $img2, $id);
+        $return = $stmt->execute();
+        return $return;
+    }
+
+    /**
+     * 修改分集資訊(含影片)
+     */
+    public function editEp($file, $epName, $id, $price)
+    {
+        $epName = str_replace("<", "&lt;", $epName);
+        $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newName = uniqid(date('YmdHis'), true) . '.' . $fileExt;
+        $filePath = 'video/' . $newName;
+        $uploadSuccess = move_uploaded_file($file['tmp_name'], $filePath);
+        if ($uploadSuccess === true) {
+            $sql = "UPDATE episodes SET episode = ?, url = ?, price = ? WHERE id = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param("ssii", $epName, $newName, $price, $id);
+            $return = $stmt->execute();
+            return $return;
+        } else return $uploadSuccess;
+    }
+
+    /**
+     * 修改分集資訊(不含影片)
+     */
+    public function editEp_nofile($epName, $id, $price)
+    {
+        $epName = str_replace("<", "&lt;", $epName);
+        $sql = "UPDATE episodes SET episode = ?, price = ? WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("sii", $epName, $price, $id);
         $return = $stmt->execute();
         return $return;
     }

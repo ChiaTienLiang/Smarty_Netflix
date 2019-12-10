@@ -26,7 +26,7 @@
     <div id="overlay">
         <div id="progstat"></div>
         <div id="progress"></div>
-        <!--    <img src="../images/1523644960_loading2.gif"> -->
+        
     </div>
 
     <div id="main">
@@ -50,6 +50,13 @@
                                             <div class="accordion-heading">
                                                 <a class="accordion-toggle" id="videoBtn">
                                                     影片編輯管理
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" id="editEp">
+                                                    分集編輯管理
                                                 </a>
                                             </div>
                                         </div>
@@ -92,12 +99,12 @@
                                     <td>{{$member.name}}</td>
                                     <td>{{$member.email}}</td>
                                     {if $member.permission === "1"}
-                                    <td>正常使用中</td>
+                                    <td id="memStop{{$member.id}}">正常使用中</td>
                                     <td> <label class="switch">
                                             <button type="button" class="btn btn-danger" id="permission{{$member.id}}"
                                                 onclick="stop('{{$member.id}}')">停權</button>
                                             {else}
-                                    <td>停權中</td>
+                                    <td id="memRestore{{$member.id}}">停權中</td>
                                     <td> <label class="switch">
                                             <button type="button" class="btn btn-success" id="permission{{$member.id}}"
                                                 onclick="restore('{{$member.id}}')">恢復</button>
@@ -110,7 +117,7 @@
                             </tbody>
                         </table>
 
-                        <!-- 影集資訊 - 上下架 -->
+                        <!-- 影集資訊編輯 - 上下架 -->
                         <table class="table table-striped" id="videoData">
                             <thead>
                                 <tr>
@@ -126,8 +133,8 @@
                                 {{foreach $allVideo as $video}}
                                 <tr>
                                     <td>{{$video@index+1}}</td>
-                                    <td>{{$video.name}}</td>
-                                    <td>{{$video.descript}}</td>
+                                    <td id="newVname{{$video.id}}">{{$video.name}}</td>
+                                    <td id="newVdes{{$video.id}}">{{$video.descript}}</td>
                                     <td class="onshelf" id="{{$video.id}}">編輯
                                     </td>
                                     {if $video.upload === "1"}
@@ -216,7 +223,7 @@
                                     <td colspan="2">
                                         <br>
                                         <button class="btn btn-primary btn-lg btn-block" data-toggle="button"
-                                            onclick="newVideo()">確認</button>
+                                            id="newVideoBtn">確認</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -281,7 +288,7 @@
                                     <td>
                                         <div id="fields">
                                             <form enctype="multipart/form-data">
-                                                <input class="span6" type="file" id="videoInput" accept="video/*" />
+                                                <input class="span6" type="file" id="videoInput" accept="video/*"/>
                                             </form>
                                         </div>
                                     </td>
@@ -293,6 +300,41 @@
                                     </td>
                                 </tr>
                             </tbody>
+                        </table>
+
+                        <!-- 各影片分集列表 -->
+                        <div id="selectDiv">
+                            <form class="form-horizontal">
+                                <select name="epList" class="span6 epList" id="selectEp">
+                                    {{foreach $allVideo as $video}}
+                                    　<option id="option{{$video.id}}" value="{{$video.id}}">
+                                        {{$video.name}}</option>
+                                    {{/foreach}}
+                                </select>
+                            </form>
+                        </div>
+
+                        <table class="table table-striped epTable">
+                            <thead>
+                                <tr>
+                                    <th>話</th>
+                                    <th>Name</th>
+                                    <th>price</th>
+                                    <th>編輯</th>
+                                </tr>
+                            </thead>
+                            {{foreach $test as $a}}
+                            {{for $foo=0 to $a|count-1}}
+                            <tbody class="epBody{{$a.$foo.videoId}} epBodytest">
+                                <tr>
+                                    <td id="newNo{{$a.$foo.no}}">{{$a.$foo.no}}</td>
+                                    <td id="newName{{$a.$foo.no}}">{{$a.$foo.episode}}</td>
+                                    <td id="newPrice{{$a.$foo.no}}">{{$a.$foo.price}}</td>
+                                    <td class="epEdit" id="{{$a.$foo.id}}">點擊編輯</td>
+                                </tr>
+                            </tbody>
+                            {{/for}}
+                            {{/foreach}}
                         </table>
                     </div>
                 </div>
@@ -322,8 +364,8 @@
                                     <div>
                                         <form id="ajax-contact-form" class="form-horizontal">
                                             <div class="control-group">
-                                                <input class="span6" type="text" id="editName{{$video.id}}" name="videoName"
-                                                    value="{{$video.name}}">
+                                                <input class="span6" type="text" id="editName{{$video.id}}"
+                                                    name="editName" value="{{$video.name}}">
                                             </div>
                                             <span class="name"></span>
                                         </form>
@@ -336,7 +378,8 @@
                                     <div id="fields">
                                         <form id="ajax-contact-form" class="form-horizontal">
                                             <span class="control-group">
-                                                <textarea class="span6" rows="5" type="text" id="editDescript{{$video.id}}"
+                                                <textarea class="span6" rows="5" type="text"
+                                                    id="editDescript{{$video.id}}"
                                                     name="descript">{{$video.descript}}</textarea>
                                         </form>
                                     </div>
@@ -351,7 +394,8 @@
                                         <form enctype="multipart/form-data">
                                             <input class="span4 editImg1" type="file" id="editImg1{{$video.id}}"
                                                 accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                            <div class="Img"><img id="showEditImg1{{$video.id}}" src="{{$video.img1}}" />
+                                            <div class="Img"><img id="showEditImg1{{$video.id}}"
+                                                    src="{{$video.img1}}" />
                                             </div>
                                             <span class="Img1"></span>
                                         </form>
@@ -377,7 +421,8 @@
                     <button type="button" class="btn btn-primary editSubmit" id="editSubmit{{$video.id}}">
                         送出
                     </button>
-                    <button type="button" class="btn btn-default editCancel" data-dismiss="myModal" id="editCancel{{$video.id}}">取消
+                    <button type="button" class="btn btn-default editCancel" data-dismiss="myModal"
+                        id="editCancel{{$video.id}}">取消
                     </button>
                 </div>
             </div>
@@ -385,6 +430,92 @@
     </div>
     {{/foreach}}
     <!-- /.modal -->
+
+    <!-- Episode編輯（Modal） -->
+    {{foreach $test as $a}}
+    {{for $foo=0 to $a|count-1}}
+    <div class="modal fade epModal" id="epModal{{$a.$foo.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" data-toggle="modal" data-target="#myModal" aria-hidden="true">
+        <div class="modal-dialog testMask">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改影片資訊
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped editEpTable" id="editEpTable{{$a.$foo.id}}">
+                        <tbody>
+                            <tr>
+                                <td class="span3">分集名稱</td>
+                                <td>
+                                    <div id="fields">
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <div class="control-group">
+                                                第<input class="span1" type="text" id="epNum{{$a.$foo.id}}" name="epNum"
+                                                    value="{{$a.$foo.no}}" maxlength=2>話
+                                                <input class="span5" type="text" id="epName{{$a.$foo.id}}" name="epName"
+                                                    value="{{$a.$foo.episode}}">
+                                            </div>
+                                            <!-- <span class="epNum span1" id="errorEditNum{{$a.$foo.id}}"></span>
+                                            <span class="epName span2" id="errorEditName{{$a.$foo.id}}"></span> -->
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">價錢</td>
+                                <td>
+                                    <div id="fields">
+                                        <form id="ajax-contact-form" class="form-horizontal">
+                                            <div class="control-group">
+                                                <input class="span3" type="text" id="epPrice{{$a.$foo.id}}"
+                                                    name="epPrice" value="{{$a.$foo.price}}" maxlength=3>
+                                            </div>
+                                            <!-- <span class="epPrice span1" id="errorEditPrice{{$a.$foo.id}}"></span> -->
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">影集</td>
+                                <td>
+                                    <div id="fields">
+                                        <span>{{$a.$foo.name}}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="span3">上傳影片</td>
+                                <td>
+                                    <div id="fields">
+                                        <form enctype="multipart/form-data">
+                                            <input class="span6" type="file" id="videoEdit{{$a.$foo.id}}"
+                                             accept="video/*" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer modalFooter">
+                    <button type="button" class="btn btn-primary editEpSubmit" id="editEpSubmit{{$a.$foo.id}}">
+                        送出
+                    </button>
+                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal" id="editEpCancel{{$a.$foo.id}}">取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/for}}
+    {{/foreach}}
+    <!-- /.modal -->
+
 </body>
 
 </html>

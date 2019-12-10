@@ -1,8 +1,11 @@
 $(document).ready(function () {
     let Rule = /^[\s\S]*.*[^\s][\s\S]*$/;
-    let numCheck, nameCheck, priceCheck;
+    let nameCheck, desCheck, epNumCheck, epNameCheck, epPriceCheck;
     $(".table").hide();
     $(".myModal").hide();
+    $("#selectDiv").hide();
+    $(".editEpTable").hide();
+    $(".epModal").hide();
 
     let numRule = /^([1-9][0-9]*){1,2}$/;
     let priceRule = /^([1-9][0-9]*){1,3}$/;
@@ -34,13 +37,13 @@ $(document).ready(function () {
     });
 
     /**
-     * 判斷是否有輸入
+     * 判斷是否有輸入(分集)
      */
     $("#epNum").blur(function () {
         if (numRule.test($("#epNum").val())) {
             $(".epNum").text("");
             $("#epNum").css("border-color", "#265f94");
-            numCheck = true;
+            epNumCheck = true;
         } else {
             $(".epNum").text("請輸入集數");
             $(".epNum").css({
@@ -48,14 +51,14 @@ $(document).ready(function () {
                 "font-size": "0.8rem"
             });
             $("#epNum").css("border-color", "red");
-            numCheck = false;
+            epnumCheck = false;
         }
     });
     $("#epName").blur(function () {
         if (Rule.test($("#epName").val())) {
             $(".epName").text("");
             $("#epName").css("border-color", "#265f94");
-            nameCheck = true;
+            epNameCheck = true;
         } else {
             $(".epName").text("請輸入該集名稱");
             $(".epName").css({
@@ -63,14 +66,14 @@ $(document).ready(function () {
                 "font-size": "0.8rem"
             });
             $("#epName").css("border-color", "red");
-            nameCheck = false;
+            epNameCheck = false;
         }
     });
     $("#epPrice").blur(function () {
         if (priceRule.test($("#epPrice").val())) {
             $(".epPrice").text("");
             $("#epPrice").css("border-color", "#265f94");
-            priceCheck = true;
+            epPriceCheck = true;
         } else {
             $(".epPrice").text("請輸入該集名稱");
             $(".epPrice").css({
@@ -78,7 +81,41 @@ $(document).ready(function () {
                 "font-size": "0.8rem"
             });
             $("#epPrice").css("border-color", "red");
-            priceCheck = false;
+            epPriceCheck = false;
+        }
+    });
+
+    /**
+    * 判斷是否有輸入(影集)
+    */
+    $("#videoName").blur(function () {
+        if (Rule.test($("#videoName").val())) {
+            $(".videoName").text("");
+            $("#videoName").css("border-color", "#265f94");
+            nameCheck = true;
+        } else {
+            $(".videoName").text("請輸入影片名稱");
+            $(".videoName").css({
+                color: "red",
+                "font-size": "0.8rem"
+            });
+            $("#videoName").css("border-color", "red");
+            nameCheck = false;
+        }
+    });
+    $("#descriptV").blur(function () {
+        if (Rule.test($("#descriptV").val())) {
+            $(".descript").text("");
+            $("#descriptV").css("border-color", "#265f94");
+            desCheck = true;
+        } else {
+            $(".descript").text("請輸入詳細敘述");
+            $(".descript").css({
+                color: "red",
+                "font-size": "0.8rem"
+            });
+            $("#descriptV").css("border-color", "red");
+            desCheck = false;
         }
     });
 
@@ -89,24 +126,38 @@ $(document).ready(function () {
         $(".table").hide();
         $("#modalDiv").hide();
         $("#memberData").show();
+        $("#selectDiv").hide();
     })
 
     $("#videoBtn").click(function () {
         $(".table").hide();
         $("#modalDiv").hide();
         $("#videoData").show();
+        $("#selectDiv").hide();
     })
 
     $("#createBtn").click(function () {
         $(".table").hide();
         $("#modalDiv").hide();
+        $("#selectDiv").hide();
         $("#newVideo").show();
     })
 
     $("#uploadBtn").click(function () {
         $(".table").hide();
         $("#modalDiv").hide();
+        $("#selectDiv").hide();
         $("#uploadEp").show();
+    })
+
+    $("#editEp").click(function () {
+        $(".table").hide();
+        $("#modalDiv").hide();
+        $(".epTable").show();
+        $("#selectDiv").show();
+        $(".epBodytest").hide();
+        let select = $("#selectEp").val();
+        $(".epBody" + select).show();
     })
 
     /**
@@ -115,7 +166,7 @@ $(document).ready(function () {
     $("#uploadButton").click(function () {
         // console.log($("#selectVideo").val());
         //判斷是否有檔案上傳
-        if (($("#videoInput").prop('files').length > 0) && numCheck && nameCheck && priceCheck) {
+        if (($("#videoInput").prop('files').length > 0) && epNumCheck && epNameCheck && epPriceCheck) {
             //判斷影片格式
             let validExt = new Array(".mp4", ".avi", ".mpg");
             let file = $("#videoInput").prop('files')[0];
@@ -230,8 +281,82 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function () {
-                            // location.reload();
-                            $(".myModal").hide();
+                            $("#newVname" + id).text($("#editName" + id).val());
+                            $("#newVdes" + id).text($("#editDescript" + id).val());
+                            $(".myModal").hide();;
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
+                    }
+                },
+                error: function (error) {
+                    // console.log(error);
+                }
+            });
+        } else {
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: '資料未輸入完全!',
+            })
+        }
+    })
+
+    /**
+     * 取消編輯-影集
+     */
+    $(".editCancel").click(function () {
+        $(".myModal").hide();
+    })
+
+    /**
+     * 影片的下拉選單
+     */
+    $(".epList").change(function () {
+        let select = $("#selectEp").val();
+        $(".epBodytest").hide();
+        $(".epBody" + select).show();
+        // document.location.hash = 'id=' + a;
+        // var uri = $("#option" + a).attr('href');
+        // console.log(uri);
+    })
+
+    /**
+    * 新建影集資訊
+    */
+    $("#newVideoBtn").click(function () {
+        img1 = $("#showImg1").attr('src');
+        img2 = $("#showImg2").attr('src');
+        // var ImgExt = new Array(".jpg", ".jpeg", ".gif", ".png");
+        if (nameCheck && desCheck && (img1 != "../images/icon.png")
+            && (img2 != "../images/icon.png")) {
+            $.ajax({
+                type: "POST",
+                url: "../VideoContro.php",
+                data: {
+                    todo: 'newVideo',
+                    name: $("#videoName").val(),
+                    des: $("#descriptV").val(),
+                    img1: $("#showImg1").attr('src'),
+                    img2: $("#showImg2").attr('src'),
+                },
+                success: function (res) {
+                    console.log(res);
+                    res = JSON.parse(res);
+                    if (res === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '建立成功',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            location.reload();
+                            $(".table").hide();
                             // $("#videoData").show();
                         });
                     } else {
@@ -253,19 +378,132 @@ $(document).ready(function () {
                 title: '資料未輸入完全!',
             })
         }
-
     })
 
     /**
-     * 取消編輯
+     * 分集編輯修改
      */
-    $(".editCancel").click(function () {
-        $(".myModal").hide();
-        // var id = $(this).attr("id");
-        // $("#myModal" + id).hide();
-        // $("#editModal" + id).hide();
+    $(".epEdit").click(function () {
+        var id = $(this).attr("id");
+        $("#epModal" + id).show();
+        $("#editEpTable" + id).show();
     })
 
+    /**
+     * 取消編輯-分集
+     */
+    $(".editEpCancel").click(function () {
+        $(".editEpTable").hide();
+        $(".epModal").hide();
+    })
+
+    /**
+     * 送出編輯-分集
+     */
+    $(".editEpSubmit").click(function () {
+        var id = $(this).attr("id");
+        id = id.substr(12);
+        if (numRule.test($("#epNum" + id).val()) && Rule.test($("#epName" + id).val()) &&
+            priceRule.test($("#epPrice" + id).val())) {
+            let epName = "第" + $("#epNum" + id).val() + "話&emsp;" + $("#epName" + id).val();
+            // 如果有影片
+            if (($("#videoEdit" + id).prop('files').length > 0)) {
+                //判斷影片格式
+                let validExt = new Array(".mp4", ".avi", ".mpg");
+                let file = $("#videoEdit" + id).prop('files')[0];
+                let fileExt = file['name'].substring(file['name'].lastIndexOf('.'));
+                // console.log(epName);
+                if (validExt.indexOf(fileExt) === 0) {
+                    let form_data = new FormData();  //建構new FormData()
+                    form_data.append('file', file);
+                    form_data.append('todo', "editEp");
+                    form_data.append('epName', epName);
+                    form_data.append('id', id);
+                    form_data.append('price', $("#epPrice" + id).val());
+                    $.ajax({
+                        type: "POST", //傳送方式
+                        url: "../VideoContro.php", //傳送目的地
+                        data: form_data,
+                        cache: false,
+                        contentType: false, // 告訴jQuery不要去設定Content-Type請求頭
+                        processData: false, // 告訴jQuery不要去處理髮送的資料
+                        success: function (res) {
+                            console.log(res);
+                            res = JSON.parse(res);
+                            if (res === true) {
+                                Swal.fire({
+                                    position: 'top',
+                                    icon: 'success',
+                                    title: '上傳成功!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function () {
+                                    $("#newNo" + id).text($("#epNum" + id).val());
+                                    $("#newName" + id).text($("#epName" + id).val());
+                                    $("#newPrice" + id).text($("#epPrice" + id).val());
+                                    $(".editEpTable").hide();
+                                    $(".epModal").hide();
+                                });
+                            } else {
+                                Swal.fire({
+                                    position: 'top',
+                                    icon: 'error',
+                                    title: '失敗!',
+                                })
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: '影片格式錯誤!',
+                    })
+                }
+            } else {
+                $.ajax({
+                    type: "POST", //傳送方式
+                    url: "../VideoContro.php", //傳送目的地
+                    data: {
+                        todo: 'editEp_nofile',
+                        epName: epName,
+                        id: id,
+                        price: $("#epPrice" + id).val()
+                    },
+                    success: function (res) {
+                        res = JSON.parse(res);
+                        if (res === true) {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '修改成功!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                $("#newNo" + id).text($("#epNum" + id).val());
+                                $("#newName" + id).text($("#epName" + id).val());
+                                $("#newPrice" + id).text($("#epPrice" + id).val());
+                                $(".editEpTable").hide();
+                                $(".epModal").hide();
+                            });
+                        } else {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: '修改失敗!',
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+    })
 })
 
     /**
@@ -388,6 +626,7 @@ function stop(e) {
                                 $("#permission" + e).removeClass("btn-danger");
                                 $("#permission" + e).addClass("btn-success");
                                 $("#permission" + e).text("恢復");
+                                $("#memStop" + e).text("停權中");
                                 $("#permission" + e).removeAttr("onclick", 'stop(' + e + ')');
                                 $("#permission" + e).attr("onclick", 'restore(' + e + ')');
                             });
@@ -443,6 +682,7 @@ function restore(e) {
                                 $("#permission" + e).removeClass("btn-success");
                                 $("#permission" + e).addClass("btn-danger");
                                 $("#permission" + e).text("停權");
+                                $("#memRestore" + e).text("正常使用中");
                                 $("#permission" + e).removeAttr("onclick", 'restore(' + e + ')');
                                 $("#permission" + e).attr("onclick", 'stop(' + e + ')');
 
@@ -574,60 +814,3 @@ function down(e) {
             }
         })
 }
-
-
-/**
- * 新建影集資訊
- */
-function newVideo() {
-    img1 = $("#showImg1").attr('src');
-    img2 = $("#showImg2").attr('src');
-    // var ImgExt = new Array(".jpg", ".jpeg", ".gif", ".png");
-    if (nameCheck && desCheck && (img1 != "../images/icon.png")
-        && (img2 != "../images/icon.png")) {
-        $.ajax({
-            type: "POST",
-            url: "../VideoContro.php",
-            data: {
-                todo: 'newVideo',
-                name: $("#videoName").val(),
-                des: $("#descriptV").val(),
-                img1: $("#showImg1").attr('src'),
-                img2: $("#showImg2").attr('src'),
-            },
-            success: function (res) {
-                console.log(res);
-                res = JSON.parse(res);
-                if (res === true) {
-                    Swal.fire({
-                        position: 'top',
-                        icon: 'success',
-                        title: '建立成功',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(function () {
-                        location.reload();
-                        $(".table").hide();
-                        // $("#videoData").show();
-                    });
-                } else {
-                    Swal.fire({
-                        position: 'top',
-                        icon: 'error',
-                        title: '失敗!',
-                    })
-                }
-            },
-            error: function (error) {
-                // console.log(error);
-            }
-        });
-    } else {
-        Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: '資料未輸入完全!',
-        })
-    }
-}
-
