@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-09 10:33:26
+/* Smarty version 3.1.33, created on 2019-12-11 10:46:38
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\member_center.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5dedb276721f40_92661630',
+  'unifunc' => 'content_5df0588e97fe31_87146623',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cbf66e95e3443b07e48d0afcd673278bfd68362f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\member_center.html',
-      1 => 1575858788,
+      1 => 1576031966,
       2 => 'file',
     ),
   ),
@@ -21,12 +21,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5dedb276721f40_92661630 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5df0588e97fe31_87146623 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>CYTV Admin Page</title>
+    <title>CYTV Member Center</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Your description">

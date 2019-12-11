@@ -26,7 +26,7 @@
     <div id="overlay">
         <div id="progstat"></div>
         <div id="progress"></div>
-        
+
     </div>
 
     <div id="main">
@@ -99,15 +99,15 @@
                                     <td>{{$member.name}}</td>
                                     <td>{{$member.email}}</td>
                                     {if $member.permission === "1"}
-                                    <td id="memStop{{$member.id}}">正常使用中</td>
+                                    <td class="memStop{{$member.id}}">正常使用中</td>
                                     <td> <label class="switch">
-                                            <button type="button" class="btn btn-danger" id="permission{{$member.id}}"
-                                                onclick="stop('{{$member.id}}')">停權</button>
+                                            <button type="button" class="btn btn-danger stop"
+                                                id="permission{{$member.id}}">停權</button>
                                             {else}
-                                    <td id="memRestore{{$member.id}}">停權中</td>
+                                    <td class="memStop{{$member.id}}">停權中</td>
                                     <td> <label class="switch">
-                                            <button type="button" class="btn btn-success" id="permission{{$member.id}}"
-                                                onclick="restore('{{$member.id}}')">恢復</button>
+                                            <button type="button" class="btn btn-success restore"
+                                                id="permission{{$member.id}}">恢復</button>
                                             {/if}
                                             <span class="slider round"></span>
                                         </label></td>
@@ -288,7 +288,7 @@
                                     <td>
                                         <div id="fields">
                                             <form enctype="multipart/form-data">
-                                                <input class="span6" type="file" id="videoInput" accept="video/*"/>
+                                                <input class="span6" type="file" id="videoInput" accept="video/*" />
                                             </form>
                                         </div>
                                     </td>
@@ -494,7 +494,7 @@
                                     <div id="fields">
                                         <form enctype="multipart/form-data">
                                             <input class="span6" type="file" id="videoEdit{{$a.$foo.id}}"
-                                             accept="video/*" />
+                                                accept="video/*" />
                                         </form>
                                     </div>
                                 </td>
@@ -506,7 +506,8 @@
                     <button type="button" class="btn btn-primary editEpSubmit" id="editEpSubmit{{$a.$foo.id}}">
                         送出
                     </button>
-                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal" id="editEpCancel{{$a.$foo.id}}">取消
+                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal"
+                        id="editEpCancel{{$a.$foo.id}}">取消
                     </button>
                 </div>
             </div>

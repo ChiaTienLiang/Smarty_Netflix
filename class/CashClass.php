@@ -71,7 +71,6 @@ class Cash extends Token
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('ii', $total, $memberId);
         $return = $stmt->execute();
-        mysqli_close($this->mysqli);
         return $return;
     }
 

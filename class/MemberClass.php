@@ -28,13 +28,10 @@ class Member extends Token
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param('sss', $name, $email, $password);
             $return = $stmt->execute();
-            mysqli_close($this->mysqli);
-            return $return;
-        } else {
-            mysqli_free_result($result);
-            mysqli_close($this->mysqli);
-            return false;
-        }
+        } else $return = false;
+        mysqli_free_result($result);
+        mysqli_close($this->mysqli);
+        return $return;
     }
 
     /**
@@ -42,7 +39,6 @@ class Member extends Token
      */
     function login($email, $password)
     {
-
         $sql = "SELECT * FROM member Where email = ?"; //確認是否有該email
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('s', $email);
@@ -51,7 +47,11 @@ class Member extends Token
         if ($result->num_rows === 0) {  //email不存在
             mysqli_free_result($result);
             mysqli_close($this->mysqli);
-            return false;
+            $return = [
+                'error' => 'mail',
+                'success' => false
+            ];
+            return $return;
         } else {
             $memberData = $result->fetch_object();
             $pwd = $memberData->password;
@@ -64,24 +64,33 @@ class Member extends Token
                     'level' => $memberData->level,
                 ];
                 $secret = json_encode($secret);
-                $token = hash_hmac('sha256', "$secret", $key, false);
+                $token = hash_hmac('sha256', $secret, $key, false);
                 $sql = "UPDATE member SET token = ? WHERE id = ?";
                 $stmt = $this->mysqli->prepare($sql);
                 $stmt->bind_param('si', $token, $memberData->id);
                 $return = $stmt->execute();
-                $this->name = $memberData->name;
-                $this->memberId = $memberData->id;
-                $this->level = $memberData->level;
-                // $return = [
-                //     'token' => $token,
-                //     'success' => true
-                // ];
-                setcookie("token", $token, time() + 3600 * 24, "/");
-                return $return;
+                if ($return) {
+                    $this->name = $memberData->name;
+                    $this->memberId = $memberData->id;
+                    $this->level = $memberData->level;
+                    setcookie("token", $token, time() + 3600 * 24, "/");
+                    $return = [
+                        'error' => null,
+                        'success' => true
+                    ];
+                } else {
+                    $return = [
+                        'error' => null,
+                        'success' => false
+                    ];
+                }
             } else {
-                mysqli_close($this->mysqli);
-                return false;
+                $return = [
+                    'error' => 'permission',
+                    'success' => false
+                ];
             }
+            return $return;
         }
     }
 
@@ -106,9 +115,11 @@ class Member extends Token
         $sql = "SELECT name,email,id,permission FROM member WHERE level = 0";
         $result = mysqli_query($this->mysqli, $sql);
         $num = mysqli_num_rows($result); //取得數量
-        for ($i = 0; $i < $num; $i++) {
-            $search[$i] = mysqli_fetch_assoc($result);
-        }
+        if ($num > 0) {
+            for ($i = 0; $i < $num; $i++) {
+                $search[$i] = mysqli_fetch_assoc($result);
+            }
+        } else $search = null;
         mysqli_free_result($result);
         return $search;
     }
@@ -118,9 +129,9 @@ class Member extends Token
      */
     public function stopPms($id)
     {
-        $sql = "UPDATE member SET permission = 0 AND token = ? WHERE id = ?";
+        $sql = "UPDATE member SET permission = 0 , token = null WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param('is', null, $id);
+        $stmt->bind_param('i', $id);
         $return =  $stmt->execute();
         return $return;
     }

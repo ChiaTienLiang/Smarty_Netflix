@@ -17,7 +17,7 @@ $(document).ready(function () {
         },
         success: function (res) {
           res = JSON.parse(res);
-          if (res === true) {
+          if (res['success'] === true) {
             Swal.fire({
               position: 'top',
               icon: 'success',
@@ -27,6 +27,12 @@ $(document).ready(function () {
             }).then(function () {
               window.location.href = "../backend/home_index.php"
             });
+          } else if (res['success'] === false && res['error'] === 'permission') {
+            Swal.fire({
+              position: 'top',
+              icon: 'error',
+              title: '您已被停權!',
+            })
           } else {
             Swal.fire({
               position: 'top',

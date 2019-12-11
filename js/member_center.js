@@ -16,12 +16,58 @@ $(document).ready(function () {
 
     $(".onshelf").click(function () {
         var id = $(this).attr("id");
-        $(".modal").hide();
-        $('#Modal' + id).show();
-        last = $("body").height() - $(window).height() //滾到最底
-        $("html").animate({
-            scrollTop: last
-        }, 1000);
+        $.ajax({
+            type: "POST", //傳送方式
+            url: "../VideoContro.php", //傳送目的地
+            data: {
+                todo: 'videoLink',
+                id: id,
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                if (res === true) {
+                    $(".modal").hide();
+                    $('#Modal' + id).show();
+                    last = $("body").height() - $(window).height() //滾到最底
+                    $("html").animate({
+                        scrollTop: last
+                    }, 1000);
+                } else if (res['success'] === false && res['error'] === 'off') {
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: '影片已下架!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: '您已被停權!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+                        window.location.href = "../backend/home_index.php"
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     })
 
 })
+
+function delCookie() {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie('token');
+    if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}

@@ -11,8 +11,13 @@ if (isset($_COOKIE['token'])) {
     $memberData = $member->checkToken($token);
 }
 
-if (isset($_POST['todo']) && ($memberData->level === 1)) {
+if (isset($_POST['todo']) && isset($memberData)) {
     switch ($_POST['todo']) {
+        case 'videoLink':
+            $id = $_POST['id'];
+            $return = $video->videoCheck($id);
+            echo json_encode($return);
+            break;
         case 'uploadEp':
             $test = $_FILES["file"]["type"];
             $file = $_FILES['file'];

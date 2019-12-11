@@ -506,48 +506,126 @@ $(document).ready(function () {
     })
 })
 
-    /**
-     * loading
-     */
-    ; (function () {
-        function id(v) { return document.getElementById(v); }
-        function loadbar() {
-            var ovrl = id("overlay"),
-                prog = id("progress"),
-                stat = id("progstat"),
-                img = document.images,
-                c = 0,
-                tot = img.length;
-            if (tot == 0) return doneLoading();
+/**
+* 會員停權
+*/
+$(document).on('click', '.stop', function () {
+    var e = $(this).attr("id");
+    e = e.substr(10);
+    console.log(e);
+    Swal.fire({
+        title: '是否停權該會員?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是',
+        cancelButtonText: '取消',
+    })
+        .then((result) => {
+            if (result.value === true) { //sweetalert2 彈窗選確定
+                $.ajax({
+                    type: "POST", //傳送方式
+                    url: "../MemberContro.php", //傳送目的地
+                    data: {
+                        todo: 'stopPms',
+                        memberId: e,
+                    },
+                    success: function (res) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                        if (res === true) {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '該會員已被停權!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                $("#permission" + e).removeClass("btn-danger stop").addClass("btn-success restore");
+                                // $("#permission" + e).addClass("btn-success restore");
+                                $("#permission" + e).text("恢復");
+                                $(".memStop" + e).text("停權中");
+                            });
+                        } else {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: '失敗!',
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        })
+})
 
-            function imgLoaded() {
-                c += 1;
-                var perc = ((100 / tot * c) << 0) + "%";
-                prog.style.width = perc;
-                stat.innerHTML = "Loading " + perc;
-                if (c === tot) return doneLoading();
+/**
+ * 停權恢復 
+ */
+$(document).on('click', '.restore', function () {
+    var e = $(this).attr("id");
+    e = e.substr(10);
+    console.log(e);
+    Swal.fire({
+        title: '是否恢復該會員權限?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是',
+        cancelButtonText: '取消',
+    })
+        .then((result) => {
+            if (result.value === true) { //sweetalert2 彈窗選確定
+                $.ajax({
+                    type: "POST", //傳送方式
+                    url: "../MemberContro.php", //傳送目的地
+                    data: {
+                        todo: 'restore',
+                        memberId: e,
+                    },
+                    success: function (res) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                        if (res === true) {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '該會員已恢復權限!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                $("#permission" + e).removeClass("btn-success restore").addClass("btn-danger stop");
+                                // $("#permission" + e).removeClass("restore");
+                                // $("#permission" + e).addClass("btn-danger");
+                                // $("#permission" + e).addClass("stop");
+                                $("#permission" + e).text("停權");
+                                $(".memStop" + e).text("正常使用中");
+                            });
+                        } else {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: '失敗!',
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
             }
-            function doneLoading() {
-                ovrl.style.opacity = 0;
-                setTimeout(function () {
-                    ovrl.style.display = "none";
-                }, 1200);
-            }
-            for (var i = 0; i < tot; i++) {
-                var tImg = new Image();
-                tImg.onload = imgLoaded;
-                tImg.onerror = imgLoaded;
-                tImg.src = img[i].src;
-            }
-        }
-        document.addEventListener('DOMContentLoaded', loadbar, false);
-    }());
+        })
+})
 
 /**
  * 圖片顯示
  */
 function editImgUrl(input, num, id) {
-    console.log(id);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -590,118 +668,6 @@ function readURL(input, num) {
     }
 }
 
-/**
- * 會員停權
- */
-function stop(e) {
-    Swal.fire({
-        title: '是否停權該會員?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '是',
-        cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../MemberContro.php", //傳送目的地
-                    data: {
-                        todo: 'stopPms',
-                        memberId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '該會員已被停權!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#permission" + e).removeClass("btn-danger");
-                                $("#permission" + e).addClass("btn-success");
-                                $("#permission" + e).text("恢復");
-                                $("#memStop" + e).text("停權中");
-                                $("#permission" + e).removeAttr("onclick", 'stop(' + e + ')');
-                                $("#permission" + e).attr("onclick", 'restore(' + e + ')');
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            }
-        })
-}
-
-/**
- * 停權恢復 
- */
-function restore(e) {
-    Swal.fire({
-        title: '是否恢復該會員權限?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '是',
-        cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../MemberContro.php", //傳送目的地
-                    data: {
-                        todo: 'restore',
-                        memberId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '該會員已恢復權限!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#permission" + e).removeClass("btn-success");
-                                $("#permission" + e).addClass("btn-danger");
-                                $("#permission" + e).text("停權");
-                                $("#memRestore" + e).text("正常使用中");
-                                $("#permission" + e).removeAttr("onclick", 'restore(' + e + ')');
-                                $("#permission" + e).attr("onclick", 'stop(' + e + ')');
-
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            }
-        })
-}
 
 /**
  * 影片上架 
@@ -814,3 +780,41 @@ function down(e) {
             }
         })
 }
+
+
+/**
+ * loading
+ */
+; (function () {
+    function id(v) { return document.getElementById(v); }
+    function loadbar() {
+        var ovrl = id("overlay"),
+            prog = id("progress"),
+            stat = id("progstat"),
+            img = document.images,
+            c = 0,
+            tot = img.length;
+        if (tot == 0) return doneLoading();
+
+        function imgLoaded() {
+            c += 1;
+            var perc = ((100 / tot * c) << 0) + "%";
+            prog.style.width = perc;
+            stat.innerHTML = "Loading " + perc;
+            if (c === tot) return doneLoading();
+        }
+        function doneLoading() {
+            ovrl.style.opacity = 0;
+            setTimeout(function () {
+                ovrl.style.display = "none";
+            }, 1200);
+        }
+        for (var i = 0; i < tot; i++) {
+            var tImg = new Image();
+            tImg.onload = imgLoaded;
+            tImg.onerror = imgLoaded;
+            tImg.src = img[i].src;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', loadbar, false);
+}());

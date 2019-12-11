@@ -72,7 +72,7 @@
                             {else}
                             <img src="{{$videoImg1}}" alt="" onclick="buyVideo('{{$value.id}}')">
                             <h5>{{$value.episode}}</h5>
-                            <h3 class="isbuy">${{$value.price}}</h3>
+                            <h3 class="isbuy" id=isbuy{{$value.id}}>${{$value.price}}</h3>
                             {/if}
                             {/if}
                             <div class="caption">

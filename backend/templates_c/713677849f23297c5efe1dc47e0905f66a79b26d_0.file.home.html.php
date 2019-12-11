@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-07 13:51:03
+/* Smarty version 3.1.33, created on 2019-12-11 12:23:06
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\home.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5deb3dc73bd751_07285972',
+  'unifunc' => 'content_5df06f2a249de0_88889179',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '713677849f23297c5efe1dc47e0905f66a79b26d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\home.html',
-      1 => 1575688580,
+      1 => 1576038183,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5deb3dc73bd751_07285972 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5df06f2a249de0_88889179 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +70,7 @@ for ($_smarty_tpl->tpl_vars['foo']->value = 0, $_smarty_tpl->tpl_vars['foo']->it
 $_smarty_tpl->tpl_vars['foo']->first = $_smarty_tpl->tpl_vars['foo']->iteration === 1;$_smarty_tpl->tpl_vars['foo']->last = $_smarty_tpl->tpl_vars['foo']->iteration === $_smarty_tpl->tpl_vars['foo']->total;?>
 						<li class="nav2 span3">
 							<?php if ($_smarty_tpl->tpl_vars['memberLevel']->value === null) {?>
-							<a href="#"><img src="<?php ob_start();
+							<a><img src="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value[$_smarty_tpl->tpl_vars['foo']->value]['img1'];
 $_prefixVariable1 = ob_get_clean();
 echo $_prefixVariable1;?>

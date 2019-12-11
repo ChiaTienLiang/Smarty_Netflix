@@ -20,17 +20,16 @@ $Video = new Video($mysqli);
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
     $member = $Video->checkToken($token);
+}
+
+if (isset($member)) {
     $smarty->assign("memberName", $member->name);
     $smarty->assign("memberId", $member->id);
     $smarty->assign("memberLevel", $member->level);
     $smarty->assign("memberWallet", $member->wallet);
 
-    // $total = $Video->countVideo();
     if (isset($_GET['id'])) {
         $videoId = (int) $_GET['id'];
-        // if (0 < $videoId && $videoId <= $total)
-        //     $videoId = $videoId;
-        // else $videoId = 1;
     } else $videoId = 1;
 
     $videoData = $Video->singalVideo($videoId);

@@ -44,19 +44,36 @@ $(document).ready(function () {
      * 檢查password是否符合正規
      */
     $("#password").blur(function () {
-        if (passwordRule.test($(this).val())) {
-            $("#errorPwd").text("");
-            $("#password").css("border-color", "#265f94");
-            pwdCheck = true;
+        if (pwd2Check === true) {
+            if (passwordRule.test($(this).val()) && ($(this).val() === $("#password2").val())) {
+                $("#errorPwd").text("");
+                $("#password").css("border-color", "#265f94");
+                pwdCheck = true;
+            } else {
+                $("#errorPwd").text("與二次密碼輸入不同");
+                $("#errorPwd").css({
+                    color: "red",
+                    "font-size": "0.8rem"
+                });
+                $("#password").css("border-color", "red");
+                pwdCheck = false;
+            }
         } else {
-            $("#errorPwd").text("密碼格式不符");
-            $("#errorPwd").css({
-                color: "red",
-                "font-size": "0.8rem"
-            });
-            $("#password").css("border-color", "red");
-            pwdCheck = false;
+            if (passwordRule.test($(this).val())) {
+                $("#errorPwd").text("");
+                $("#password").css("border-color", "#265f94");
+                pwdCheck = true;
+            } else {
+                $("#errorPwd").text("密碼格式不符");
+                $("#errorPwd").css({
+                    color: "red",
+                    "font-size": "0.8rem"
+                });
+                $("#password").css("border-color", "red");
+                pwdCheck = false;
+            }
         }
+
     });
 
     /**

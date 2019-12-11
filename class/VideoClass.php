@@ -13,6 +13,31 @@ class Video extends Token
     // }
 
     /**
+     * 確認影片狀態(上下架)
+     */
+    public function videoCheck($id)
+    {
+        $sql = "SELECT COUNT(*) AS num FROM episodes,videos WHERE videos.id=episodes.videoId AND videos.upload = 1 AND episodes.id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $videoData = mysqli_fetch_assoc($result);
+        if ($videoData['num'] > 0) {
+            $return = [
+                'error' => null,
+                'success' => true
+            ];
+        } else {
+            $return = [
+                'error' => 'off',
+                'success' => false
+            ];
+        }
+        return $return;
+    }
+
+    /**
      * 撈全部影片資料(一般使用者)
      */
     public function allVideo()
@@ -20,9 +45,11 @@ class Video extends Token
         $sql = "SELECT * FROM videos WHERE upload = 1";
         $result = mysqli_query($this->mysqli, $sql);
         $num = mysqli_num_rows($result); //取得數量
-        for ($i = 0; $i < $num; $i++) {
-            $search[$i] = mysqli_fetch_assoc($result);
-        }
+        if ($num > 0) {
+            for ($i = 0; $i < $num; $i++) {
+                $search[$i] = mysqli_fetch_assoc($result);
+            }
+        } else $search = null;
         return $search;
     }
 
@@ -34,9 +61,11 @@ class Video extends Token
         $sql = "SELECT * FROM videos";
         $result = mysqli_query($this->mysqli, $sql);
         $num = mysqli_num_rows($result); //取得數量
-        for ($i = 0; $i < $num; $i++) {
-            $search[$i] = mysqli_fetch_assoc($result);
-        }
+        if ($num > 0) {
+            for ($i = 0; $i < $num; $i++) {
+                $search[$i] = mysqli_fetch_assoc($result);
+            }
+        } else $search = null;
         return $search;
     }
 

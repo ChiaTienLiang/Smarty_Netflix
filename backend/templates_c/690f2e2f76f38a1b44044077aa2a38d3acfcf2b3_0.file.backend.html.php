@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-10 17:58:00
+/* Smarty version 3.1.33, created on 2019-12-11 16:23:01
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\backend.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5def6c289f74a0_97626552',
+  'unifunc' => 'content_5df0a765e5bad9_81284104',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '690f2e2f76f38a1b44044077aa2a38d3acfcf2b3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\backend.html',
-      1 => 1575971859,
+      1 => 1576052167,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/header.tpl' => 1,
   ),
 ),false)) {
-function content_5def6c289f74a0_97626552 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5df0a765e5bad9_81284104 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +58,7 @@ function content_5def6c289f74a0_97626552 (Smarty_Internal_Template $_smarty_tpl)
     <div id="overlay">
         <div id="progstat"></div>
         <div id="progress"></div>
-        
+
     </div>
 
     <div id="main">
@@ -151,31 +151,31 @@ $_prefixVariable3 = ob_get_clean();
 echo $_prefixVariable3;?>
 </td>
                                     <?php if ($_smarty_tpl->tpl_vars['member']->value['permission'] === "1") {?>
-                                    <td>正常使用中</td>
-                                    <td> <label class="switch">
-                                            <button type="button" class="btn btn-danger" id="permission<?php ob_start();
+                                    <td class="memStop<?php ob_start();
 echo $_smarty_tpl->tpl_vars['member']->value['id'];
 $_prefixVariable4 = ob_get_clean();
 echo $_prefixVariable4;?>
-"
-                                                onclick="stop('<?php ob_start();
+">正常使用中</td>
+                                    <td> <label class="switch">
+                                            <button type="button" class="btn btn-danger stop"
+                                                id="permission<?php ob_start();
 echo $_smarty_tpl->tpl_vars['member']->value['id'];
 $_prefixVariable5 = ob_get_clean();
 echo $_prefixVariable5;?>
-')">停權</button>
+">停權</button>
                                             <?php } else { ?>
-                                    <td>停權中</td>
-                                    <td> <label class="switch">
-                                            <button type="button" class="btn btn-success" id="permission<?php ob_start();
+                                    <td class="memStop<?php ob_start();
 echo $_smarty_tpl->tpl_vars['member']->value['id'];
 $_prefixVariable6 = ob_get_clean();
 echo $_prefixVariable6;?>
-"
-                                                onclick="restore('<?php ob_start();
+">停權中</td>
+                                    <td> <label class="switch">
+                                            <button type="button" class="btn btn-success restore"
+                                                id="permission<?php ob_start();
 echo $_smarty_tpl->tpl_vars['member']->value['id'];
 $_prefixVariable7 = ob_get_clean();
 echo $_prefixVariable7;?>
-')">恢復</button>
+">恢復</button>
                                             <?php }?>
                                             <span class="slider round"></span>
                                         </label></td>
@@ -440,7 +440,7 @@ echo $_prefixVariable23;?>
                                     <td>
                                         <div id="fields">
                                             <form enctype="multipart/form-data">
-                                                <input class="span6" type="file" id="videoInput" accept="video/*"/>
+                                                <input class="span6" type="file" id="videoInput" accept="video/*" />
                                             </form>
                                         </div>
                                     </td>
@@ -867,7 +867,7 @@ echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['i
 $_prefixVariable71 = ob_get_clean();
 echo $_prefixVariable71;?>
 "
-                                             accept="video/*" />
+                                                accept="video/*" />
                                         </form>
                                     </div>
                                 </td>
@@ -883,7 +883,8 @@ echo $_prefixVariable72;?>
 ">
                         送出
                     </button>
-                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal" id="editEpCancel<?php ob_start();
+                    <button type="button" class="btn btn-default editEpCancel" data-dismiss="epModal"
+                        id="editEpCancel<?php ob_start();
 echo $_smarty_tpl->tpl_vars['a']->value[$_smarty_tpl->tpl_vars['foo']->value]['id'];
 $_prefixVariable73 = ob_get_clean();
 echo $_prefixVariable73;?>

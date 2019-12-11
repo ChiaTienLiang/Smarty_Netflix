@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-09 10:41:45
+/* Smarty version 3.1.33, created on 2019-12-11 13:41:57
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\videoPage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5dedb4693117f4_43634953',
+  'unifunc' => 'content_5df081a5d870b2_42087721',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f03b1b534a5fdd717322b428b3b2310d53ad2f7d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\videoPage.html',
-      1 => 1575859267,
+      1 => 1576042868,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5dedb4693117f4_43634953 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5df081a5d870b2_42087721 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -160,10 +160,14 @@ echo $_smarty_tpl->tpl_vars['value']->value['episode'];
 $_prefixVariable12 = ob_get_clean();
 echo $_prefixVariable12;?>
 </h5>
-                            <h3 class="isbuy">$<?php ob_start();
-echo $_smarty_tpl->tpl_vars['value']->value['price'];
+                            <h3 class="isbuy" id=isbuy<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value['id'];
 $_prefixVariable13 = ob_get_clean();
 echo $_prefixVariable13;?>
+>$<?php ob_start();
+echo $_smarty_tpl->tpl_vars['value']->value['price'];
+$_prefixVariable14 = ob_get_clean();
+echo $_prefixVariable14;?>
 </h3>
                             <?php }?>
                             <?php }?>
@@ -182,14 +186,14 @@ foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
 ?>
                     <div class="modal hide" id="myModal<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value['id'];
-$_prefixVariable14 = ob_get_clean();
-echo $_prefixVariable14;?>
+$_prefixVariable15 = ob_get_clean();
+echo $_prefixVariable15;?>
 " role="dialog">
                         <video class="video" width="100%" height="100%" controls>
                             <source src="../video/<?php ob_start();
 echo $_smarty_tpl->tpl_vars['value']->value['url'];
-$_prefixVariable15 = ob_get_clean();
-echo $_prefixVariable15;?>
+$_prefixVariable16 = ob_get_clean();
+echo $_prefixVariable16;?>
 " type="video/mp4">
                         </video>
                     </div>

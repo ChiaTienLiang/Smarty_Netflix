@@ -41,6 +41,7 @@ if (isset($_COOKIE['token'])) {
             $j = $test[$i]['videoId'];
             $array_test[$j][] = $test[$i];
         }
+        
         $smarty->assign("test", $array_test);
         $smarty->assign("allMember", $allMember);
         $smarty->assign("memberName", $memberData->name);

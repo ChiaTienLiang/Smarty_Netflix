@@ -16,6 +16,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
     $memberData = $member->checkToken($token);
+    if (!isset($memberData)) {
+        echo json_encode(false);
+        exit;
+    }
 }
 
 
