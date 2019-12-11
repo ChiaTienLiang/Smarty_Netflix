@@ -2,10 +2,21 @@
 require_once './backend/sql.php';
 require_once './class/CashClass.php';
 require_once './class/VideoClass.php';
+require_once './class/MemberClass.php';
 
 $cash = new Cash($mysqli);
 $video = new Video($mysqli);
-$token =  $_COOKIE['token'];
+$member = new Member($mysqli);
+
+if (isset($_COOKIE['token'])) {
+    $token = $_COOKIE['token'];
+    $memberData = $member->checkToken($token);
+}
+
+if (!isset($memberData)) {
+    echo json_encode(false);
+    exit;
+}
 
 switch ($_POST['todo']) {
     case 'deposit':
@@ -17,10 +28,15 @@ switch ($_POST['todo']) {
         $videoId = $_POST['videoId'];
         $num = $video->videoCheck($videoId);
         if ($num['success'] === true) {
-            $videoData = $video->getPrice($videoId);
+            $videoData = $video->getEpData($videoId);
             $return = $cash->buyVideo($videoId, $token, $videoData['price']);
-            echo json_encode($return);
-        } else echo json_encode(false);
+        } else {
+            $return = [
+                'error' => 'off',
+                'success' => false
+            ];
+        }
+        echo json_encode($return);
         break;
     default:
         echo json_encode(false);

@@ -11,7 +11,13 @@ if (isset($_COOKIE['token'])) {
     $memberData = $member->checkToken($token);
 }
 
-if (isset($_POST['todo']) && isset($memberData)) {
+
+if (isset($memberData)) {
+    echo json_encode(false);
+    exit;
+}
+
+if (isset($_POST['todo'])) {
     switch ($_POST['todo']) {
         case 'videoLink':
             $id = $_POST['id'];
@@ -74,5 +80,20 @@ if (isset($_POST['todo']) && isset($memberData)) {
             echo json_encode(false);
             break;
     }
-} else
-    echo json_encode(false);
+} elseif (isset($_GET['todo'])) {
+    switch ($_GET['todo']) {
+        case 'getOneEp':
+            $id = $_POST['id'];
+            $return = $video->getEpData($id);
+            echo json_encode($return);
+            break;
+        case 'getOneVideo':
+            $id = $_POST['id'];
+            $return = $video->singalVideo($id);
+            echo json_encode($return);
+            break;
+        default:
+            echo json_encode(false);
+            break;
+    }
+}

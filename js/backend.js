@@ -242,11 +242,6 @@ $(document).ready(function () {
         var id = $(this).attr("id");
         $("#myModal" + id).show();
         $("#editModal" + id).show();
-        // let editName = $("#editName").val();
-        // let editDescript = $("#editDescript").val();
-        // let showEditImg1 = $("#showEditImg1").attr('src');
-        // let showEditImg2 = $("#showEditImg2").attr('src');
-        // console.log(id);
     })
 
     /**

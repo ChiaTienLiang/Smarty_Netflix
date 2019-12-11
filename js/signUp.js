@@ -2,6 +2,7 @@ $(document).ready(function () {
     let nameRule = /^.+$/;
     let emailRule = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+(\.[a-zA-Z]+)?$/;
     let passwordRule = /^[a-zA-Z0-9]{8,12}$/;
+    let pwd2Check;
     /**
      * 檢查名字是否空白
      */

@@ -57,7 +57,6 @@ function watchVideo(e) {
  * 未購買
  */
 function buyVideo(e) {
-    console.log(e);
     Swal.fire({
         title: '是否進行購買?',
         icon: 'warning',
@@ -77,9 +76,10 @@ function buyVideo(e) {
                         videoId: e,
                     },
                     success: function (res) {
+                        console.log(res);
                         res = JSON.parse(res);
                         console.log(res);
-                        if (res === true) {
+                        if (res['success'] === true) {
                             Swal.fire({
                                 position: 'top',
                                 icon: 'success',
@@ -96,12 +96,25 @@ function buyVideo(e) {
                                     scrollTop: last
                                 }, 1000);
                             });
+                        } else if (res['success'] === false && res['error'] === 'off') {
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: '影片已下架!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function () {
+                                location.reload();
+                            });
                         } else {
                             Swal.fire({
                                 position: 'top',
                                 icon: 'error',
-                                title: '該影片已被下架!',
+                                title: '您已被停權!',
+                                showConfirmButton: false,
+                                timer: 1500
                             }).then(function () {
+                                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
                                 window.location.href = "../backend/home_index.php"
                             });
                         }

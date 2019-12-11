@@ -44,7 +44,7 @@ class Video extends Token
     {
         $sql = "SELECT * FROM videos WHERE upload = 1";
         $result = mysqli_query($this->mysqli, $sql);
-        $num = mysqli_num_rows($result); //取得數量
+        $num = mysqli_num_rows($result); ## 取得數量
         if ($num > 0) {
             for ($i = 0; $i < $num; $i++) {
                 $search[$i] = mysqli_fetch_assoc($result);
@@ -133,17 +133,17 @@ class Video extends Token
     }
 
     /**
-     * 撈單一集數價錢
+     * 撈單一集數資料
      */
-    public function getPrice($id)
+    public function getEpData($id)
     {
-        $sql = "SELECT price FROM episodes WHERE id = ?";
+        $sql = "SELECT * FROM episodes WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $price = $result->fetch_assoc();
-        return $price;
+        $data = $result->fetch_assoc();
+        return $data;
     }
 
     /**
@@ -317,6 +317,7 @@ class Video extends Token
 
     /**
      * 修改分集資訊(含影片)
+     * @param objcet $file 圖片資料
      */
     public function editEp($file, $epName, $id, $price)
     {
@@ -325,13 +326,15 @@ class Video extends Token
         $newName = uniqid(date('YmdHis'), true) . '.' . $fileExt;
         $filePath = 'video/' . $newName;
         $uploadSuccess = move_uploaded_file($file['tmp_name'], $filePath);
-        if ($uploadSuccess === true) {
-            $sql = "UPDATE episodes SET episode = ?, url = ?, price = ? WHERE id = ?";
-            $stmt = $this->mysqli->prepare($sql);
-            $stmt->bind_param("ssii", $epName, $newName, $price, $id);
-            $return = $stmt->execute();
-            return $return;
-        } else return $uploadSuccess;
+
+        if ($uploadSuccess !== true) {
+            return false;
+        }
+
+        $sql = "UPDATE episodes SET episode = ?, url = ?, price = ? WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssii", $epName, $newName, $price, $id);
+        return $stmt->execute();
     }
 
     /**

@@ -70,8 +70,7 @@ class Cash extends Token
         $sql = "UPDATE member SET wallet = ? WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('ii', $total, $memberId);
-        $return = $stmt->execute();
-        return $return;
+        return $stmt->execute();
     }
 
     /**
@@ -80,7 +79,7 @@ class Cash extends Token
     public function buyVideo($viedoId, $token, $price)
     {
         $memberData = Token::checkToken($token);
-
+        
         ## 新增購買紀錄
         $sql = "INSERT INTO shopping(memberId,episodeId,cost,create_at)VALUES(?,?,?,?)";
         $stmt = $this->mysqli->prepare($sql);
@@ -90,6 +89,11 @@ class Cash extends Token
         ## 錢包扣款
         $total = $memberData->wallet - $price;
         $return = $this->updateWallet($total, $memberData->id);
+
+        $return = [
+            'error' => null,
+            'success' => true
+        ];
         return $return;
     }
 
