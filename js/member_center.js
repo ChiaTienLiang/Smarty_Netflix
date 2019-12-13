@@ -24,16 +24,16 @@ $(document).ready(function () {
                 id: id,
             },
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 res = JSON.parse(res);
-                if (res === true) {
+                if (res['success'] === true) {
                     $(".modal").hide();
                     $('#Modal' + id).show();
                     last = $("body").height() - $(window).height() //滾到最底
                     $("html").animate({
                         scrollTop: last
                     }, 1000);
-                } else if (res['success'] === false && res['error'] === 'off') {
+                } else if (res['success'] === false && res['error_code'] === 1) {
                     Swal.fire({
                         position: 'top',
                         icon: 'error',
@@ -63,11 +63,3 @@ $(document).ready(function () {
     })
 
 })
-
-function delCookie() {
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval = getCookie('token');
-    if (cval != null)
-        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-}

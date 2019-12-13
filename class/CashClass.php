@@ -23,10 +23,15 @@ class Cash extends Token
         $stmt->execute();
         $result = $stmt->get_result();
         $num = mysqli_num_rows($result);
+
+        if ($num === 0) {
+            $result = null;
+            return $result;
+        }
+
         for ($i = 0; $i < $num; $i++) {
             $search[$i] = mysqli_fetch_assoc($result);
         }
-        mysqli_close($this->mysqli);
         return $search;
     }
 
@@ -38,7 +43,10 @@ class Cash extends Token
         $sql = "SELECT * FROM moneycategory WHERE id = ? ";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('i', $moneyId);
-        $stmt->execute();
+        $return = $stmt->execute();
+        if ($return !== true) {
+            return $return;
+        }
         $result = $stmt->get_result();
         $money = $result->fetch_object();
         return $money;
@@ -47,18 +55,39 @@ class Cash extends Token
     /**
      * 儲值
      */
-    public function deposit($moneyId, $token)
+    public function deposit($moneyId, $memberData)
     {
-        $memberData = Token::checkToken($token);
         $money = $this->wallet($moneyId);
 
         ## 新增儲值紀錄
         $sql = "INSERT INTO deposit(memberId,price,point,create_at)VALUES(?,?,?,?)";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('iiis', $memberData->id, $money->price, $money->point, $this->date);
-        $stmt->execute();
+        $return = $stmt->execute();
+        if ($return !== true) {
+            $return = [
+                'error_code' => 19,
+                'success' => false,
+                'data' => null
+            ];
+            return $return;
+        }
         $total = $memberData->wallet + $money->point;
         $return = $this->updateWallet($total, $memberData->id);
+        if ($return !== true) {
+            $return = [
+                'error_code' => 20,
+                'success' => false,
+                'data' => null
+            ];
+            return $return;
+        }
+
+        $return = [
+            'error_code' => null,
+            'success' => true,
+            'data' => null
+        ];
         return $return;
     }
 
@@ -74,25 +103,40 @@ class Cash extends Token
     }
 
     /**
-     * 購買影片
+     * 購買影片(扣款)
      */
-    public function buyVideo($viedoId, $token, $price)
+    public function debit($viedoId, $memberData, $price)
     {
-        $memberData = Token::checkToken($token);
-        
         ## 新增購買紀錄
-        $sql = "INSERT INTO shopping(memberId,episodeId,cost,create_at)VALUES(?,?,?,?)";
+        $sql = "INSERT INTO shopping(memberId, episodeId, cost, create_at) VALUES (?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param('iiis', $memberData->id, $viedoId, $price, $this->date);
-        $stmt->execute();
+        $stmt->bind_param('iiis',  $memberData->id, $viedoId, $price, $this->date);
+        $return = $stmt->execute();
+        if ($return !== true) {
+            $return = [
+                'error_code' => 21,
+                'success' => false,
+                'data' => null
+            ];
+            return $return;
+        }
 
         ## 錢包扣款
         $total = $memberData->wallet - $price;
-        $return = $this->updateWallet($total, $memberData->id);
+        $debitSuccess = $this->updateWallet($total, $memberData->id);
+        if ($debitSuccess !== true) {
+            $return = [
+                'error_code' => 22,
+                'success' => false,
+                'data' => null
+            ];
+            return $return;
+        }
 
         $return = [
             'error' => null,
-            'success' => true
+            'success' => true,
+            'data' => null
         ];
         return $return;
     }
@@ -108,12 +152,12 @@ class Cash extends Token
         $stmt->execute();
         $result = $stmt->get_result();
         $num = mysqli_num_rows($result);
-        if ($num > 0) {
-            for ($i = 0; $i < $num; $i++) {
-                $search[$i] = mysqli_fetch_assoc($result);
-            }
-        } else {
+        if ($num === 0) {
             $search = null;
+            return $search;
+        }
+        for ($i = 0; $i < $num; $i++) {
+            $search[$i] = mysqli_fetch_assoc($result);
         }
         return $search;
     }

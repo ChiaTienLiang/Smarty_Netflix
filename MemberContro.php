@@ -8,7 +8,7 @@ $passwordR = '/^[a-zA-Z0-9]{8,12}$/';
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if (!preg_match($emailR, $email) || !preg_match($passwordR, $password)) { //是否符合正規
+    if (!preg_match($emailR, $email) || !preg_match($passwordR, $password)) { ## 是否符合正規
         echo json_encode(false);
         exit;
     }
@@ -22,8 +22,14 @@ if (isset($_COOKIE['token'])) {
     }
 }
 
+if (!isset($_POST)) {
+    echo json_encode(false);
+    exit;
+}
 
-switch ($_POST['todo']) {
+$request = $_POST;
+
+switch ($request['todo']) {
     case 'login':
         $return = $member->login($email, $password);
         echo json_encode($return);
@@ -33,20 +39,20 @@ switch ($_POST['todo']) {
         echo json_encode($return);
         break;
     case 'signUp':
-        if (isset($_POST['name'])) {
-            $name = $_POST['name'];
-            $password = password_hash($password, PASSWORD_DEFAULT); //hash加密
+        if (isset($request['name'])) {
+            $name = $request['name'];
+            $password = password_hash($password, PASSWORD_DEFAULT); ## hash加密
             $return =  $member->signUp($name, $email, $password);
             echo json_encode($return);
         } else echo json_encode(false);
         break;
     case 'stopPms':
-        $memberId = $_POST['memberId'];
+        $memberId = $request['memberId'];
         $return =  $member->stopPms($memberId);
         echo json_encode($return);
         break;
     case 'restore':
-        $memberId = $_POST['memberId'];
+        $memberId = $request['memberId'];
         $return =  $member->restore($memberId);
         echo json_encode($return);
         break;

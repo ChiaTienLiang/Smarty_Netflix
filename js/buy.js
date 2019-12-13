@@ -6,7 +6,7 @@ $(document).ready(function () {
     let monthRule = /^[0-1][0-9]$/;
     let yearRule = /^[2-9][0-9]$/;
     let safeRule = /^\d{3}$/;
-    
+
     /**
      * 檢查名字是否空白
      */
@@ -27,7 +27,7 @@ $(document).ready(function () {
             nameCheck2 = false;
         }
     });
-    
+
     $("#lastName").blur(function () {
         if (nameRule.test($("#lastName").val())) {
             $(".last").text("");
@@ -182,7 +182,7 @@ $(document).ready(function () {
                 },
                 success: function (res) {
                     res = JSON.parse(res);
-                    if (res === true) {
+                    if (res['success'] === true) {
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
@@ -201,7 +201,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function (error) {
-                    // console.log(error);
+                    console.log(error);
                 }
             });
         } else {

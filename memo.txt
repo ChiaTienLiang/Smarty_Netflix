@@ -1,0 +1,30 @@
+error_code:
+
+VideoClass
+1 -> videoCheck -> 影片已下架
+2 -> offShelf   -> 影片下架 (資料庫UPDATE失敗)
+3 -> onShelf    -> 影片上架 (資料庫UPDATE失敗)
+4 -> newVideo   -> 新增影集 (資料庫INSERT失敗)
+5 -> uploadEp   -> 檔案移動失敗
+6 -> uploadEp   -> 新增分集 (資料庫INSERT失敗)
+7 -> editVideo  -> 修改影片資訊 (資料庫UPDATE失敗)
+8 -> editEp     -> 檔案移動失敗
+9 -> editEp     -> 修改分集資訊 (資料庫UPDATE失敗)
+10 -> editEp_nofile -> 修改分集資訊 (資料庫UPDATE失敗)
+
+MemberClass
+11 -> signUp     -> email已被註冊
+12 -> signUp     -> 新增會員 (資料庫INSERT失敗)
+12 -> signUp     -> 新增會員 (資料庫INSERT失敗)
+13 -> login      -> email不存在
+14 -> login      -> token (資料庫UPDATE失敗)
+15 -> login      -> 該會員已被停權
+16 -> logout     -> 清除token (資料庫UPDATE失敗)
+17 -> stopPms    -> 會員停權 (資料庫UPDATE失敗)
+18 -> restore    -> 會員復權 (資料庫UPDATE失敗)
+
+CashClass
+19 -> deposit    -> 儲值紀錄 (資料庫INSERT失敗)
+20 -> deposit    -> 錢包更新 (資料庫UPDATE失敗)
+21 -> debit      -> 購買紀錄 (資料庫INSERT失敗)
+22 -> debit      -> 錢包扣款 (資料庫UPDATE失敗)

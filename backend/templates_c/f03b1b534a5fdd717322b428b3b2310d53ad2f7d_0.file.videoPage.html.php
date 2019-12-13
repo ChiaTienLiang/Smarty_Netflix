@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-12-11 13:41:57
+/* Smarty version 3.1.33, created on 2019-12-12 12:20:13
   from 'C:\xampp\htdocs\Project\Smarty_Netflix\templates\videoPage.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5df081a5d870b2_42087721',
+  'unifunc' => 'content_5df1bffd597139_59548377',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f03b1b534a5fdd717322b428b3b2310d53ad2f7d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Project\\Smarty_Netflix\\templates\\videoPage.html',
-      1 => 1576042868,
+      1 => 1576123854,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../templates/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5df081a5d870b2_42087721 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5df1bffd597139_59548377 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 

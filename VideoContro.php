@@ -11,89 +11,57 @@ if (isset($_COOKIE['token'])) {
     $memberData = $member->checkToken($token);
 }
 
-
-if (isset($memberData)) {
+if (!isset($memberData)) {
     echo json_encode(false);
     exit;
 }
 
-if (isset($_POST['todo'])) {
-    switch ($_POST['todo']) {
-        case 'videoLink':
-            $id = $_POST['id'];
-            $return = $video->videoCheck($id);
-            echo json_encode($return);
-            break;
-        case 'uploadEp':
-            $test = $_FILES["file"]["type"];
-            $file = $_FILES['file'];
-            $epName = $_POST['epName'];
-            $videoId = $_POST['videoId'];
-            $price = $_POST['price'];
-            $return = $video->uploadEp($file, $epName, $videoId, $price);
-            echo json_encode($return);
-            break;
-        case 'onShelf':
-            $videoId = $_POST['videoId'];
-            $return = $video->onShelf($videoId);
-            echo json_encode($return);
-            break;
-        case 'offShelf':
-            $videoId = $_POST['videoId'];
-            $return = $video->offShelf($videoId);
-            echo json_encode($return);
-            break;
-        case 'newVideo':
-            $name = $_POST['name'];
-            $des = $_POST['des'];
-            $img1 = $_POST['img1'];
-            $img2 = $_POST['img2'];
-            $return = $video->newVideo($name, $des, $img1, $img2);
-            echo json_encode($return);
-            break;
-        case 'editVideo':
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $des = $_POST['des'];
-            $img1 = $_POST['img1'];
-            $img2 = $_POST['img2'];
-            $return = $video->editVideo($id, $name, $des, $img1, $img2);
-            echo json_encode($return);
-            break;
-        case 'editEp':
-            $test = $_FILES["file"]["type"];
-            $file = $_FILES['file'];
-            $epName = $_POST['epName'];
-            $id = $_POST['id'];
-            $price = $_POST['price'];
-            $return = $video->editEp($file, $epName, $id, $price);
-            echo json_encode($return);
-            break;
-        case 'editEp_nofile':
-            $epName = $_POST['epName'];
-            $id = $_POST['id'];
-            $price = $_POST['price'];
-            $return = $video->editEp_nofile($epName, $id, $price);
-            echo json_encode($return);
-            break;
-        default:
-            echo json_encode(false);
-            break;
-    }
-} elseif (isset($_GET['todo'])) {
-    switch ($_GET['todo']) {
-        case 'getOneEp':
-            $id = $_POST['id'];
-            $return = $video->getEpData($id);
-            echo json_encode($return);
-            break;
-        case 'getOneVideo':
-            $id = $_POST['id'];
-            $return = $video->singalVideo($id);
-            echo json_encode($return);
-            break;
-        default:
-            echo json_encode(false);
-            break;
-    }
+if (!isset($_POST)) {
+    echo json_encode(false);
+    exit;
+}
+
+$request = $_POST;
+
+if (isset($_FILES)) {
+    $files = $_FILES;
+}
+
+switch ($request['todo']) {
+    case 'videoLink':
+        $id = $request['id'];
+        $return = $video->videoCheck($id);
+        echo json_encode($return);
+        break;
+    case 'uploadEp':
+        $return = $video->uploadEp($files['file'], $request['epName'], $request['videoId'], $request['price']);
+        echo json_encode($return);
+        break;
+    case 'onShelf':
+        $return = $video->onShelf($request['videoId']);
+        echo json_encode($return);
+        break;
+    case 'offShelf':
+        $return = $video->offShelf($request['videoId']);
+        echo json_encode($return);
+        break;
+    case 'newVideo':
+        $return = $video->newVideo($request['name'], $request['des'], $request['img1'], $request['img2']);
+        echo json_encode($return);
+        break;
+    case 'editVideo':
+        $return = $video->editVideo($request['id'], $request['name'], $request['des'], $request['img1'], $request['img2']);
+        echo json_encode($return);
+        break;
+    case 'editEp':
+        $return = $video->editEp($files['file'], $request['epName'], $request['id'], $request['price']);
+        echo json_encode($return);
+        break;
+    case 'editEp_nofile':
+        $return = $video->editEp_nofile($request['epName'], $request['id'], $request['price']);
+        echo json_encode($return);
+        break;
+    default:
+        echo json_encode(false);
+        break;
 }

@@ -24,7 +24,7 @@ function watchVideo(e) {
                 $("html").animate({
                     scrollTop: last
                 }, 1000);
-            } else if (res['success'] === false && res['error'] === 'off') {
+            } else if (res['success'] === false && res['error_code'] === 1) {
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
@@ -76,7 +76,7 @@ function buyVideo(e) {
                         videoId: e,
                     },
                     success: function (res) {
-                        console.log(res);
+                        // console.log(res);
                         res = JSON.parse(res);
                         console.log(res);
                         if (res['success'] === true) {
@@ -96,7 +96,7 @@ function buyVideo(e) {
                                     scrollTop: last
                                 }, 1000);
                             });
-                        } else if (res['success'] === false && res['error'] === 'off') {
+                        } else if (res['success'] === false && res['error_code'] === 1) {
                             Swal.fire({
                                 position: 'top',
                                 icon: 'error',

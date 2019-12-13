@@ -18,27 +18,38 @@ if (!isset($memberData)) {
     exit;
 }
 
-switch ($_POST['todo']) {
+if (!isset($_POST)) {
+    echo json_encode(false);
+    exit;
+}
+
+$request = $_POST;
+
+switch ($request['todo']) {
     case 'deposit':
-        $moneyId = $_POST['moneyId'];
-        $return = $cash->deposit($moneyId, $token);
+        $return = $cash->deposit($request['moneyId'], $memberData);
         echo json_encode($return);
         break;
     case 'buyVideo':
-        $videoId = $_POST['videoId'];
-        $num = $video->videoCheck($videoId);
-        if ($num['success'] === true) {
-            $videoData = $video->getEpData($videoId);
-            $return = $cash->buyVideo($videoId, $token, $videoData['price']);
-        } else {
+        $num = $video->videoCheck($request['videoId']);
+
+        if ($num['success'] !== true) {
             $return = [
-                'error' => 'off',
+                'error_code' => 'off',
                 'success' => false
             ];
+            echo json_encode($return);
+            break;
         }
+        $videoData = $video->getEpData($request['videoId']);
+        $return = $cash->debit($request['videoId'], $memberData, $videoData['price']);
         echo json_encode($return);
         break;
     default:
-        echo json_encode(false);
+        $return = [
+            'error_code' => 1,
+            'success' => false
+        ];
+        echo json_encode($return);
         break;
 }

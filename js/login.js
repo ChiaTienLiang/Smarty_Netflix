@@ -27,7 +27,7 @@ $(document).ready(function () {
             }).then(function () {
               window.location.href = "../backend/home_index.php"
             });
-          } else if (res['success'] === false && res['error'] === 'permission') {
+          } else if (res['success'] === false && res['error_code'] === 15) {
             Swal.fire({
               position: 'top',
               icon: 'error',

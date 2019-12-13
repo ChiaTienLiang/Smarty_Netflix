@@ -11,7 +11,7 @@ $(document).ready(function () {
             },
             success: function (res) {
                 res = JSON.parse(res);
-                if (res === true) {
+                if (res['success'] === true) {
                     let timerInterval
                     Swal.fire({
                         title: '頁面將於3秒後進行跳轉',
@@ -46,6 +46,8 @@ $(document).ready(function () {
                         // position: 'top',
                         icon: 'error',
                         title: '發生無預期的錯誤!',
+                    }).then((result) => {
+                        window.location.href = "../backend/home_index.php"
                     })
                 }
             },

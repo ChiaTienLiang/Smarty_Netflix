@@ -109,7 +109,7 @@ $(document).ready(function () {
                 },
                 success: function (res) {
                     res = JSON.parse(res);
-                    if (res === true) {
+                    if (res['success'] === true) {
                         Swal.fire({
                             position: 'top',
                             icon: 'success',

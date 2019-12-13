@@ -137,17 +137,17 @@
                                     <td id="newVdes{{$video.id}}">{{$video.descript}}</td>
                                     <td class="onshelf" id="{{$video.id}}">編輯
                                     </td>
-                                    {if $video.upload === "1"}
-                                    <td>上架</td>
+                                    {{if $video.upload === "1"}}
+                                    <td class="isOnShelf{{$video.id}}">上架</td>
                                     <td> <label class="switch video">
                                             <button type="button" class="btn btn-danger down" id="shelf{{$video.id}}"
                                                 onclick="down('{{$video.id}}')">下架</button>
-                                            {else}
-                                    <td>已下架</td>
+                                            {{else}}
+                                    <td class="isOnShelf{{$video.id}}">已下架</td>
                                     <td> <label class="switch video">
                                             <button type="button" class="btn btn-success up" id="shelf{{$video.id}}"
                                                 onclick="up('{{$video.id}}')">上架</button>
-                                            {/if}
+                                            {{/if}}
                                             <span class="slider round"></span>
                                         </label></td>
                                 </tr>
@@ -327,9 +327,9 @@
                             {{for $foo=0 to $a|count-1}}
                             <tbody class="epBody{{$a.$foo.videoId}} epBodytest">
                                 <tr>
-                                    <td id="newNo{{$a.$foo.no}}">{{$a.$foo.no}}</td>
-                                    <td id="newName{{$a.$foo.no}}">{{$a.$foo.episode}}</td>
-                                    <td id="newPrice{{$a.$foo.no}}">{{$a.$foo.price}}</td>
+                                    <td id="newNo{{$a.$foo.id}}">{{$a.$foo.no}}</td>
+                                    <td id="newName{{$a.$foo.id}}">{{$a.$foo.episode}}</td>
+                                    <td id="newPrice{{$a.$foo.id}}">{{$a.$foo.price}}</td>
                                     <td class="epEdit" id="{{$a.$foo.id}}">點擊編輯</td>
                                 </tr>
                             </tbody>

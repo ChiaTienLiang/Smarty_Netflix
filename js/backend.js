@@ -188,9 +188,9 @@ $(document).ready(function () {
                     contentType: false, // 告訴jQuery不要去設定Content-Type請求頭
                     processData: false, // 告訴jQuery不要去處理髮送的資料
                     success: function (res) {
-                        console.log(res);
+                        // console.log(res);
                         res = JSON.parse(res);
-                        if (res === true) {
+                        if (res['success'] === true) {
                             Swal.fire({
                                 position: 'top',
                                 icon: 'success',
@@ -198,11 +198,12 @@ $(document).ready(function () {
                                 showConfirmButton: false,
                                 timer: 1500
                             }).then(function () {
-                                $("#epNum").val("");
-                                $("#epName").val("");
-                                $("#selectVideo").val("");
-                                $("#epPrice").val("");
-                                $("#videoInput").val("");
+                                location.reload();
+                                // $("#epNum").val("");
+                                // $("#epName").val("");
+                                // $("#selectVideo").val("");
+                                // $("#epPrice").val("");
+                                // $("#videoInput").val("");
                             });
                         } else {
                             Swal.fire({
@@ -231,8 +232,6 @@ $(document).ready(function () {
                 title: '未上傳影片!',
             })
         }
-
-
     });
 
     /**
@@ -268,7 +267,7 @@ $(document).ready(function () {
                 },
                 success: function (res) {
                     res = JSON.parse(res);
-                    if (res === true) {
+                    if (res['success'] === true) {
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
@@ -315,9 +314,6 @@ $(document).ready(function () {
         let select = $("#selectEp").val();
         $(".epBodytest").hide();
         $(".epBody" + select).show();
-        // document.location.hash = 'id=' + a;
-        // var uri = $("#option" + a).attr('href');
-        // console.log(uri);
     })
 
     /**
@@ -340,9 +336,9 @@ $(document).ready(function () {
                     img2: $("#showImg2").attr('src'),
                 },
                 success: function (res) {
-                    console.log(res);
+                    // console.log(res);
                     res = JSON.parse(res);
-                    if (res === true) {
+                    if (res['success'] === true) {
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
@@ -351,7 +347,7 @@ $(document).ready(function () {
                             timer: 1500
                         }).then(function () {
                             location.reload();
-                            $(".table").hide();
+                            // $(".table").hide();
                             // $("#videoData").show();
                         });
                     } else {
@@ -423,9 +419,9 @@ $(document).ready(function () {
                         contentType: false, // 告訴jQuery不要去設定Content-Type請求頭
                         processData: false, // 告訴jQuery不要去處理髮送的資料
                         success: function (res) {
-                            console.log(res);
+                            // console.log(res);
                             res = JSON.parse(res);
-                            if (res === true) {
+                            if (res['success'] === true) {
                                 Swal.fire({
                                     position: 'top',
                                     icon: 'success',
@@ -470,7 +466,7 @@ $(document).ready(function () {
                     },
                     success: function (res) {
                         res = JSON.parse(res);
-                        if (res === true) {
+                        if (res['success'] === true) {
                             Swal.fire({
                                 position: 'top',
                                 icon: 'success',
@@ -507,7 +503,7 @@ $(document).ready(function () {
 $(document).on('click', '.stop', function () {
     var e = $(this).attr("id");
     e = e.substr(10);
-    console.log(e);
+    // console.log(e);
     Swal.fire({
         title: '是否停權該會員?',
         icon: 'warning',
@@ -516,46 +512,45 @@ $(document).on('click', '.stop', function () {
         cancelButtonColor: '#d33',
         confirmButtonText: '是',
         cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../MemberContro.php", //傳送目的地
-                    data: {
-                        todo: 'stopPms',
-                        memberId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '該會員已被停權!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#permission" + e).removeClass("btn-danger stop").addClass("btn-success restore");
-                                // $("#permission" + e).addClass("btn-success restore");
-                                $("#permission" + e).text("恢復");
-                                $(".memStop" + e).text("停權中");
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+    }).then((result) => {
+        if (result.value === true) { //sweetalert2 彈窗選確定
+            $.ajax({
+                type: "POST", //傳送方式
+                url: "../MemberContro.php", //傳送目的地
+                data: {
+                    todo: 'stopPms',
+                    memberId: e,
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    // console.log(res);
+                    if (res['success'] === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '該會員已被停權!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            $("#permission" + e).removeClass("btn-danger stop").addClass("btn-success restore");
+                            // $("#permission" + e).addClass("btn-success restore");
+                            $("#permission" + e).text("恢復");
+                            $(".memStop" + e).text("停權中");
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
                     }
-                });
-            }
-        })
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 })
 
 /**
@@ -564,7 +559,7 @@ $(document).on('click', '.stop', function () {
 $(document).on('click', '.restore', function () {
     var e = $(this).attr("id");
     e = e.substr(10);
-    console.log(e);
+    // console.log(e);
     Swal.fire({
         title: '是否恢復該會員權限?',
         icon: 'warning',
@@ -573,48 +568,47 @@ $(document).on('click', '.restore', function () {
         cancelButtonColor: '#d33',
         confirmButtonText: '是',
         cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../MemberContro.php", //傳送目的地
-                    data: {
-                        todo: 'restore',
-                        memberId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '該會員已恢復權限!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#permission" + e).removeClass("btn-success restore").addClass("btn-danger stop");
-                                // $("#permission" + e).removeClass("restore");
-                                // $("#permission" + e).addClass("btn-danger");
-                                // $("#permission" + e).addClass("stop");
-                                $("#permission" + e).text("停權");
-                                $(".memStop" + e).text("正常使用中");
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+    }).then((result) => {
+        if (result.value === true) { //sweetalert2 彈窗選確定
+            $.ajax({
+                type: "POST", //傳送方式
+                url: "../MemberContro.php", //傳送目的地
+                data: {
+                    todo: 'restore',
+                    memberId: e,
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    // console.log(res);
+                    if (res['success'] === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '該會員已恢復權限!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            $("#permission" + e).removeClass("btn-success restore").addClass("btn-danger stop");
+                            // $("#permission" + e).removeClass("restore");
+                            // $("#permission" + e).addClass("btn-danger");
+                            // $("#permission" + e).addClass("stop");
+                            $("#permission" + e).text("停權");
+                            $(".memStop" + e).text("正常使用中");
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
                     }
-                });
-            }
-        })
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 })
 
 /**
@@ -640,10 +634,9 @@ function editImgUrl(input, num, id) {
     }
 }
 
-
 function readURL(input, num) {
-    console.log(input.files);
-    console.log(input.files[0]);
+    // console.log(input.files);
+    // console.log(input.files[0]);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -663,7 +656,6 @@ function readURL(input, num) {
     }
 }
 
-
 /**
  * 影片上架 
  */
@@ -676,47 +668,47 @@ function up(e) {
         cancelButtonColor: '#d33',
         confirmButtonText: '是',
         cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../VideoContro.php", //傳送目的地
-                    data: {
-                        todo: 'onShelf',
-                        videoId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        // console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '影片上架成功!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#shelf" + e).removeClass("btn-success");
-                                $("#shelf" + e).addClass("btn-danger");
-                                $("#shelf" + e).text("下架");
-                                $("#shelf" + e).removeAttr("onclick", 'up(' + e + ')');
-                                $("#shelf" + e).attr("onclick", 'down(' + e + ')');
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+    }).then((result) => {
+        if (result.value === true) { //sweetalert2 彈窗選確定
+            $.ajax({
+                type: "POST", //傳送方式
+                url: "../VideoContro.php", //傳送目的地
+                data: {
+                    todo: 'onShelf',
+                    videoId: e,
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    // console.log(res);
+                    if (res['success'] === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '影片上架成功!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            $("#shelf" + e).removeClass("btn-success");
+                            $("#shelf" + e).addClass("btn-danger");
+                            $("#shelf" + e).text("下架");
+                            $(".isOnShelf" + e).text("上架");
+                            $("#shelf" + e).removeAttr("onclick", 'up(' + e + ')');
+                            $("#shelf" + e).attr("onclick", 'down(' + e + ')');
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
                     }
-                });
-            }
-        })
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 }
 
 /**
@@ -731,51 +723,50 @@ function down(e) {
         cancelButtonColor: '#d33',
         confirmButtonText: '是',
         cancelButtonText: '取消',
-    })
-        .then((result) => {
-            if (result.value === true) { //sweetalert2 彈窗選確定
-                $.ajax({
-                    type: "POST", //傳送方式
-                    url: "../VideoContro.php", //傳送目的地
-                    data: {
-                        todo: 'offShelf',
-                        videoId: e,
-                    },
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        // console.log(res);
-                        if (res === true) {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: '該影片已下架!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function () {
-                                $("#shelf" + e).removeClass("btn-danger");
-                                $("#shelf" + e).addClass("btn-success");
-                                $("#shelf" + e).text("上架");
-                                $("#shelf" + e).removeAttr("onclick", 'down(' + e + ')');
-                                $("#shelf" + e).attr("onclick", 'up(' + e + ')');
-                                // window.location.href = "../backend/home_index.php"
-                                // location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: '失敗!',
-                            })
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+    }).then((result) => {
+        if (result.value === true) { //sweetalert2 彈窗選確定
+            $.ajax({
+                type: "POST", //傳送方式
+                url: "../VideoContro.php", //傳送目的地
+                data: {
+                    todo: 'offShelf',
+                    videoId: e,
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    // console.log(res);
+                    if (res['success'] === true) {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: '該影片已下架!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            $("#shelf" + e).removeClass("btn-danger");
+                            $("#shelf" + e).addClass("btn-success");
+                            $("#shelf" + e).text("上架");
+                            $(".isOnShelf" + e).text("已下架");
+                            $("#shelf" + e).removeAttr("onclick", 'down(' + e + ')');
+                            $("#shelf" + e).attr("onclick", 'up(' + e + ')');
+                            // window.location.href = "../backend/home_index.php"
+                            // location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: '失敗!',
+                        })
                     }
-                });
-            }
-        })
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 }
-
 
 /**
  * loading
