@@ -12,12 +12,22 @@ if (isset($_COOKIE['token'])) {
 }
 
 if (!isset($memberData)) {
-    echo json_encode(false);
+    $return = [
+        'error_code' => 23,
+        'success' => false,
+        'data' => null
+    ];
+    echo json_encode($return);
     exit;
 }
 
 if (!isset($_POST)) {
-    echo json_encode(false);
+    $return = [
+        'error_code' => 24,
+        'success' => false,
+        'data' => null
+    ];
+    echo json_encode($return);
     exit;
 }
 
@@ -62,6 +72,11 @@ switch ($request['todo']) {
         echo json_encode($return);
         break;
     default:
-        echo json_encode(false);
+        $return = [
+            'error_code' => 25,
+            'success' => false,
+            'data' => null
+        ];
+        echo json_encode($return);
         break;
 }

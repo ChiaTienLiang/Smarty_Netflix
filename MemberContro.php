@@ -9,7 +9,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     if (!preg_match($emailR, $email) || !preg_match($passwordR, $password)) { ## 是否符合正規
-        echo json_encode(false);
+        $return = [
+            'error_code' => 29,
+            'success' => false,
+            'data' => null
+        ];
+        echo json_encode($return);
         exit;
     }
 }
@@ -17,13 +22,23 @@ if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
     $memberData = $member->checkToken($token);
     if (!isset($memberData)) {
-        echo json_encode(false);
+        $return = [
+            'error_code' => 30,
+            'success' => false,
+            'data' => null
+        ];
+        echo json_encode($return);
         exit;
     }
 }
 
 if (!isset($_POST)) {
-    echo json_encode(false);
+    $return = [
+        'error_code' => 31,
+        'success' => false,
+        'data' => null
+    ];
+    echo json_encode($return);
     exit;
 }
 
@@ -44,7 +59,14 @@ switch ($request['todo']) {
             $password = password_hash($password, PASSWORD_DEFAULT); ## hash加密
             $return =  $member->signUp($name, $email, $password);
             echo json_encode($return);
-        } else echo json_encode(false);
+        } else {
+            $return = [
+                'error_code' => 32,
+                'success' => false,
+                'data' => null
+            ];
+            echo json_encode($return);
+        }
         break;
     case 'stopPms':
         $memberId = $request['memberId'];
@@ -57,6 +79,11 @@ switch ($request['todo']) {
         echo json_encode($return);
         break;
     default:
-        echo json_encode(false);
+        $return = [
+            'error_code' => 33,
+            'success' => false,
+            'data' => null
+        ];
+        echo json_encode($return);
         break;
 }

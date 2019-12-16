@@ -28,3 +28,20 @@ CashClass
 20 -> deposit    -> 錢包更新 (資料庫UPDATE失敗)
 21 -> debit      -> 購買紀錄 (資料庫INSERT失敗)
 22 -> debit      -> 錢包扣款 (資料庫UPDATE失敗)
+
+VideoContro
+23 -> 14行  ->  token比對結果為0 -> !isset($memberData)
+24 -> 24行  ->  !isset($_POST)
+25 -> switch default
+
+CashContro
+26 -> 18行  ->  token比對結果為0 -> !isset($memberData)
+27 -> 28行  ->  !isset($_POST)
+28 -> switch default
+
+MemberContro
+29 -> 13行  ->  email及密碼不符合正規
+30 -> 26行  ->  token比對結果為0 -> !isset($memberData)
+31 -> 35行  ->  !isset($_POST)
+32 -> 68行  ->  !isset($request['name'])
+33 -> 35行  ->  switch default
